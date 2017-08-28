@@ -97,6 +97,11 @@ ob_end_clean();
           </div>
         </div>
         <div class="col-md-9">
+          <?php foreach ($app['flashMessages'] as $key => $flashMessage) : ?>
+            <div class="alert alert-<?php echo $flashMessage['type']; ?>" role="alert">
+              <?php echo $flashMessage['text']; ?>
+            </div>
+          <?php endforeach; ?>
           <?php echo $app['content']; ?>
         </div>
       </div>

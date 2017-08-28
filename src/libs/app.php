@@ -7,5 +7,6 @@ return [
   'jsFiles' => [],
   'jsScripts' => [],
   'db' => include(__DIR__ . '/db.php'),
+  'flashMessages' => [],
 ];
 ?>

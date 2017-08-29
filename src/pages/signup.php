@@ -1,5 +1,16 @@
 <?php
 $app['pageTitle'] = "ลงทะเบียน";
+$app['layout'] = __DIR__ . '/../layouts/blank.php';
+$app['cssScripts'][] = "
+body{
+  background-color: #eee;
+}
+.form-signup {
+  max-width: 500px;
+  padding: 15px;
+  margin: 0 auto;
+}
+";
 
 // $sth = $app['db']->prepare("SELECT * FROM user");
 // $sth->execute();
@@ -34,20 +45,30 @@ if($_POST) {
 
  ?>
 
- <h1 class="test">Signup</h1>
-
- <form method="post">
-   <div class="form-group">
-     <label for="usernam">Username</label>
-     <input type="text" class="form-control" id="username" name="username" placeholder="Username">
+ <div class="card form-signup">
+   <div class="card-body">
+     <h4 class="card-title">Signup</h4>
+     <h6 class="card-subtitle mb-2 text-muted">สมัครสมาชิก</h6>
+     <div class="card-text">
+       <form method="post">
+         <div class="form-group">
+           <label for="usernam">Username</label>
+           <input type="text" class="form-control" id="username" name="username" placeholder="Username">
+         </div>
+         <div class="form-group">
+           <label for="password">Password</label>
+           <input type="password" class="form-control" id="password" name="password" placeholder="Password">
+         </div>
+         <div class="form-group">
+           <label for="email">e-Mail</label>
+           <input type="text" class="form-control" id="email" name="email" placeholder="e-Mail">
+         </div>
+         <button type="submit" class="btn btn-primary">Signup</button>
+         <br />
+       </form>
+     </div>
+     <hr />
+     <a href="index.php" class="card-link">Home</a>
+     <a href="?page=login" class="card-link">Login</a>
    </div>
-   <div class="form-group">
-     <label for="password">Password</label>
-     <input type="password" class="form-control" id="password" name="password" placeholder="Password">
-   </div>
-   <div class="form-group">
-     <label for="email">e-Mail</label>
-     <input type="text" class="form-control" id="email" name="email" placeholder="e-Mail">
-   </div>
-   <button type="submit" class="btn btn-primary">Signup</button>
- </form>
+ </div>

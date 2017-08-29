@@ -8,5 +8,6 @@ return [
   'jsScripts' => [],
   'db' => include(__DIR__ . '/db.php'),
   'flashMessages' => [],
+  'layout' => __DIR__ . '/../layouts/main.php',
 ];
 ?>

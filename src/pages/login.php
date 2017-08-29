@@ -1,5 +1,16 @@
 <?php
 $app['pageTitle'] = "เข้าสู่ระบบ";
+$app['layout'] = __DIR__ . '/../layouts/blank.php';
+$app['cssScripts'][] = "
+body{
+  background-color: #eee;
+}
+.form-signup {
+  max-width: 500px;
+  padding: 15px;
+  margin: 0 auto;
+}
+";
 
 if ($_POST) {
   $sth = $app['db']->prepare("SELECT * FROM user WHERE username = :username");
@@ -29,17 +40,25 @@ if ($_POST) {
   }
 }
 ?>
-
-<h1>Login</h1>
-
-<form method="post">
-  <div class="form-group">
-    <label for="usernam">Username</label>
-    <input type="text" class="form-control" id="username" name="username" placeholder="Username">
+<div class="card form-signup">
+  <div class="card-body">
+    <h4 class="card-title">Login</h4>
+    <h6 class="card-subtitle mb-2 text-muted">เข้าสู่ระบบ</h6>
+    <div class="card-text">
+      <form method="post">
+        <div class="form-group">
+          <label for="usernam">Username</label>
+          <input type="text" class="form-control" id="username" name="username" placeholder="Username">
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" class="form-control" id="password" name="password" placeholder="Password">
+        </div>
+        <button type="submit" class="btn btn-primary">Login</button>
+      </form>
+    </div>
+    <hr />
+    <a href="index.php" class="card-link">Home</a>
+    <a href="?page=signup" class="card-link">Signup</a>
   </div>
-  <div class="form-group">
-    <label for="password">Password</label>
-    <input type="password" class="form-control" id="password" name="password" placeholder="Password">
-  </div>
-  <button type="submit" class="btn btn-primary">Login</button>
-</form>
+</div>

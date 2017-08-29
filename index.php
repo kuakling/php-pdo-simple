@@ -1,4 +1,5 @@
 <?php
+session_start();
 $config = include(__DIR__ . '/src/libs/config.php');
 $app = include(__DIR__ . '/src/libs/app.php');
 $app['pageName'] = (isset($_GET['page'])) ? $_GET['page'] : 'index';
@@ -58,17 +59,26 @@ ob_end_clean();
       <div class="collapse navbar-collapse" id="navbarsExampleDefault">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item active">
-            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="index.php">Home <span class="sr-only">(current)</span></a>
           </li>
         </ul>
 
         <ul class="navbar-nav  my-2 my-lg-0">
+          <?php if(isset($_SESSION['auth']) && $_SESSION['auth']['isAuthenticated']){ ?>
           <li class="nav-item">
-            <a class="nav-link" href="#">Signup</span></a>
+            <span class="navbar-text"><?php echo $_SESSION['auth']['user']['username']; ?></span>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Login</span></a>
+            <a class="nav-link" href="?page=logout">Logout</a>
           </li>
+          <?php } else { ?>
+          <li class="nav-item">
+            <a class="nav-link" href="?page=signup">Signup</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="?page=login">Login</a>
+          </li>
+          <?php } ?>
         </ul>
       </div>
     </nav>
@@ -102,6 +112,11 @@ ob_end_clean();
               <?php echo $flashMessage['text']; ?>
             </div>
           <?php endforeach; ?>
+          <?php
+          // if(isset($_SESSION['auth'])){
+          //   print_r($_SESSION['auth']);
+          // }
+          ?>
           <?php echo $app['content']; ?>
         </div>
       </div>

@@ -17,7 +17,7 @@ $app['pageTitle'] = "ร้านคู่ค้า";
       <th>Name</th>
       <th>Address</th>
       <th>Telephone</th>
-      <th style="width: 120px;" class="text-center">Action</th>
+      <th style="width: 150px;" class="text-center">Action</th>
     </tr>
   </thead>
   <tbody>
@@ -28,6 +28,7 @@ $app['pageTitle'] = "ร้านคู่ค้า";
       <td><?= $row['address']; ?></td>
       <td><?= $row['telephone']; ?></td>
       <td class="text-center">
+        <a href="?page=admin/supplier/view&id=<?= $row['id'] ?>" class="btn btn-info btn-sm">ดู</a>
         <a href="?page=admin/supplier/update&id=<?= $row['id'] ?>" class="btn btn-primary btn-sm">แก้ไข</a>
         <a href="?page=admin/supplier/delete&id=<?= $row['id'] ?>" class="btn btn-danger btn-sm btn-delete">ลบ</a>
       </td>

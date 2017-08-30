@@ -50,7 +50,7 @@
           <hr />
           <ul class="nav nav-pills flex-column">
             <li class="nav-item">
-              <a class="nav-link" href="#">Product</a>
+              <a class="nav-link" href="?page=admin/product/index">Product</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="?page=admin/product_type/index">Product Type</a>

@@ -1,6 +1,2 @@
-<?php
-admin_verify();
-
-$app['layout'] = __DIR__ . '/../../layouts/dashboard.php';
-?>
+<?php admin_init(); ?>
 ยินดีต้อนรับ

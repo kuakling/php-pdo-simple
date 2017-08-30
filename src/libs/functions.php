@@ -3,8 +3,10 @@ function admin_verify() {
   global $app;
   if(!isset($_SESSION['auth']) || !$_SESSION['auth']['isAuthenticated']){
     header('location: ?page=login');
+    exit();
   }else{
     if(!$_SESSION['auth']['user']['is_admin']){
+      header('HTTP/1.0 403 Forbidden');
       $app['flashMessages'][] = [
         'type' => 'danger',
         'text' => '403 Not Allow.'
@@ -14,6 +16,12 @@ function admin_verify() {
       exit();
     }
   }
+}
+
+function admin_init() {
+  global $app;
+  admin_verify();
+  $app['layout'] = __DIR__ . '/../layouts/dashboard.php';
 }
 
 function layout_head() {

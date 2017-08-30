@@ -20,13 +20,19 @@ $result = $sth['page']->fetchAll(PDO::FETCH_ASSOC);
 $sth['count'] = $app['db']->prepare($prepare['count']);
 $sth['count']->execute();
 $rowCount = $sth['count']->fetch(PDO::FETCH_ASSOC)['count'];
-echo $rowCount;
+// echo $rowCount;
+
+$pageCount = ceil($rowCount/$limit);
+// echo $pageCount;
 
 $app['pageTitle'] = "สินค้า";
 ?>
 
 <h2><?= $app['pageTitle']; ?></h2>
-<a href="?page=admin/product/create" class="btn btn-success">เพิ่มข้อมูล</a>
+<a href="?page=admin/product/create" class="btn btn-success">
+  <i class="fa fa-plus" aria-hidden="true"></i>
+  เพิ่มข้อมูล
+</a>
 <table class="table table-striped table-bordered">
   <thead>
     <tr>
@@ -35,7 +41,7 @@ $app['pageTitle'] = "สินค้า";
       <th>Price</th>
       <th>Qty</th>
       <th>Type</th>
-      <th style="width: 150px;" class="text-center">Action</th>
+      <th style="width: 80px;" class="text-center">Action</th>
     </tr>
   </thead>
   <tbody>
@@ -47,9 +53,9 @@ $app['pageTitle'] = "สินค้า";
       <td><?= $row['qty']; ?></td>
       <td><?= $row['type_name']; ?></td>
       <td class="text-center">
-        <a href="?page=admin/product/view&id=<?= $row['id'] ?>" class="btn btn-info btn-sm">ดู</a>
-        <a href="?page=admin/product/update&id=<?= $row['id'] ?>" class="btn btn-primary btn-sm">แก้ไข</a>
-        <a href="?page=admin/product/delete&id=<?= $row['id'] ?>" class="btn btn-danger btn-sm btn-delete">ลบ</a>
+        <a href="?page=admin/product/view&id=<?= $row['id'] ?>" class="text-info"><i class="fa fa-eye" aria-hidden="true"></i></a>
+        <a href="?page=admin/product/update&id=<?= $row['id'] ?>" class="text-primary"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+        <a href="?page=admin/product/delete&id=<?= $row['id'] ?>" class="text-danger btn-delete"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
       </td>
     </tr>
     <?php endforeach; ?>
@@ -58,17 +64,17 @@ $app['pageTitle'] = "สินค้า";
 
 <nav aria-label="Page navigation example">
   <ul class="pagination">
-    <li class="page-item">
-      <a class="page-link" href="#" aria-label="Previous">
+    <li class="page-item<?= ($p == 1) ? ' disabled' : '' ?>">
+      <a class="page-link" href="?page=admin/product/index&p=<?= $p-1; ?>" aria-label="Previous">
         <span aria-hidden="true">&laquo;</span>
         <span class="sr-only">Previous</span>
       </a>
     </li>
-    <li class="page-item"><a class="page-link" href="#">1</a></li>
-    <li class="page-item"><a class="page-link" href="#">2</a></li>
-    <li class="page-item"><a class="page-link" href="#">3</a></li>
-    <li class="page-item">
-      <a class="page-link" href="#" aria-label="Next">
+    <?php for($i=1; $i<=$pageCount; $i++) : ?>
+    <li class="page-item<?= ($p == $i) ? ' active' : '' ?>"><a class="page-link" href="?page=admin/product/index&p=<?= $i; ?>"><?= $i; ?></a></li>
+    <?php endfor; ?>
+    <li class="page-item<?= ($p >= $pageCount) ? ' disabled' : '' ?>">
+      <a class="page-link" href="?page=admin/product/index&p=<?= $p+1; ?>" aria-label="Next">
         <span aria-hidden="true">&raquo;</span>
         <span class="sr-only">Next</span>
       </a>

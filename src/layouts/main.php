@@ -11,6 +11,7 @@
 
     <!-- Bootstrap core CSS -->
     <link href="assets/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="assets/font-awesome/css/font-awesome.min.css">
 
     <!-- Custom styles for this template -->
     <link href="assets/css/jumbotron.css" rel="stylesheet">

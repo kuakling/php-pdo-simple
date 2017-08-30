@@ -13,12 +13,13 @@ if($_POST) {
   }
 
   if(!$errors){
-    $stmt = $app['db']->prepare("INSERT INTO supplier (supplier_name, address, telephone, detail) VALUES (:supplier_name, :address, :telephone, :detail)");
+    $stmt = $app['db']->prepare("UPDATE supplier SET supplier_name=:supplier_name, address=:address, telephone=:telephone, detail=:detail WHERE id=:id");
     $stmt->execute([
       'supplier_name' => $_POST['supplier_name'],
       'address' => $_POST['address'],
       'telephone' => $_POST['telephone'],
       'detail' => $_POST['detail'],
+      'id' => $_GET['id'],
     ]);
 
     $errorInfo = $stmt->errorInfo();
@@ -28,21 +29,19 @@ if($_POST) {
         'text' => $errorInfo[2]
       ];
     }else{
-      header('location: ?page=admin/supplier/index');
+      header('location: ?page=admin/supplier/update&id='.$_GET['id']);
       exit();
     }
   }
 
 }
 
-$app['pageTitle'] = "เพิ่มข้อมูลร้านคู่ค้า";
-
-$formData = [
-  'supplier_name' => '',
-  'address' => '',
-  'telephone' => '',
-  'detail' => ''
-];
+$sth = $app['db']->prepare("SELECT * FROM supplier WHERE id=:id");
+$sth->execute([
+  'id' => $_GET['id']
+]);
+$formData = $sth->fetch(PDO::FETCH_ASSOC);
+$app['pageTitle'] = "แก้ไขข้อมูลร้านคู่ค้า: ".$formData['supplier_name'];
 ?>
 <h2><?= $app['pageTitle']; ?></h2>
 

@@ -38,7 +38,7 @@
       <?php echo $flashMessage['text']; ?>
     </div>
   <?php endforeach; ?>
-  
+
   <?php echo $app['content']; ?>
     <!-- Bootstrap core JavaScript
     ================================================== -->

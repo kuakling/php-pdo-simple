@@ -2,6 +2,7 @@
 session_start();
 $config = include(__DIR__ . '/src/libs/config.php');
 $app = include(__DIR__ . '/src/libs/app.php');
+include(__DIR__ . '/src/libs/functions.php');
 $app['pageName'] = (isset($_GET['page'])) ? $_GET['page'] : 'index';
 $app['pageFile'] = __DIR__ . '/src/pages/' . $app['pageName'] . '.php';
 // echo $file;

@@ -14,21 +14,7 @@
 
     <!-- Custom styles for this template -->
     <link href="assets/css/jumbotron.css" rel="stylesheet">
-    <?php
-      foreach ($app['cssFiles'] as $key => $cssFile) {
-        echo "<link href=\"$cssFile\" rel=\"stylesheet\">\n";
-      }
-    ?>
-
-    <?php
-    if(count($app['cssScripts']) > 0){
-      echo "<style>";
-      foreach ($app['cssScripts'] as $key => $cssScript) {
-        echo $cssScript . "\n";
-      }
-      echo "</style>";
-    }
-    ?>
+    <?php layout_head(); ?>
   </head>
 
   <body>
@@ -90,16 +76,7 @@
           </div>
         </div>
         <div class="col-md-9">
-          <?php foreach ($app['flashMessages'] as $key => $flashMessage) : ?>
-            <div class="alert alert-<?php echo $flashMessage['type']; ?>" role="alert">
-              <?php echo $flashMessage['text']; ?>
-            </div>
-          <?php endforeach; ?>
-          <?php
-          // if(isset($_SESSION['auth'])){
-          //   print_r($_SESSION['auth']);
-          // }
-          ?>
+          <?php layout_flash_messages(); ?>
           <?php echo $app['content']; ?>
         </div>
       </div>
@@ -122,22 +99,6 @@
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="assets/js/ie10-viewport-bug-workaround.js"></script>
 
-    <?php
-      foreach ($app['jsFiles'] as $key => $jsFile) {
-        echo "<script src=\"$jsFile\"></script>\n";
-      }
-    ?>
-
-    <?php
-    if(count($app['jsScripts']) > 0){
-      echo "<script type=\"text/javascript\">\n";
-      echo "$( document ).ready(function() {\n";
-      foreach ($app['jsScripts'] as $key => $jsScript) {
-        echo $jsScript . "\n";
-      }
-      echo "});\n";
-      echo "</script>\n";
-    }
-    ?>
+    <?php layout_end_body(); ?>
   </body>
 </html>

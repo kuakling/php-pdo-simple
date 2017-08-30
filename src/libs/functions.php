@@ -15,4 +15,43 @@ function admin_verify() {
     }
   }
 }
+
+function layout_head() {
+  global $app;
+  foreach ($app['cssFiles'] as $key => $cssFile) {
+    echo "<link href=\"$cssFile\" rel=\"stylesheet\">\n";
+  }
+
+  if(count($app['cssScripts']) > 0){
+    echo "<style>";
+    foreach ($app['cssScripts'] as $key => $cssScript) {
+      echo $cssScript . "\n";
+    }
+    echo "</style>";
+  }
+}
+
+function layout_flash_messages() {
+  global $app;
+  foreach ($app['flashMessages'] as $key => $flashMessage) {
+    echo "<div class=\"alert alert-{$flashMessage['type']}\" role=\"alert\">{$flashMessage['text']}</div>";
+  }
+}
+
+function layout_end_body() {
+  global $app;
+  foreach ($app['jsFiles'] as $key => $jsFile) {
+    echo "<script src=\"$jsFile\"></script>\n";
+  }
+
+  if(count($app['jsScripts']) > 0){
+    echo "<script type=\"text/javascript\">\n";
+    echo "$( document ).ready(function() {\n";
+    foreach ($app['jsScripts'] as $key => $jsScript) {
+      echo $jsScript . "\n";
+    }
+    echo "});\n";
+    echo "</script>\n";
+  }
+}
 ?>

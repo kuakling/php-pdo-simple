@@ -13,6 +13,7 @@
 
     <!-- Custom styles for this template -->
     <link href="assets/css/dashboard.css" rel="stylesheet">
+    <?php layout_head(); ?>
   </head>
 
   <body>
@@ -61,11 +62,7 @@
         </nav>
 
         <main class="col-sm-9 ml-sm-auto col-md-10 pt-3" role="main">
-          <?php foreach ($app['flashMessages'] as $key => $flashMessage) : ?>
-            <div class="alert alert-<?php echo $flashMessage['type']; ?>" role="alert">
-              <?php echo $flashMessage['text']; ?>
-            </div>
-          <?php endforeach; ?>
+          <?php layout_flash_messages(); ?>
           <?php echo $app['content']; ?>
         </main>
       </div>
@@ -81,22 +78,6 @@
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="assets/js/ie10-viewport-bug-workaround.js"></script>
 
-    <?php
-      foreach ($app['jsFiles'] as $key => $jsFile) {
-        echo "<script src=\"$jsFile\"></script>\n";
-      }
-    ?>
-
-    <?php
-    if(count($app['jsScripts']) > 0){
-      echo "<script type=\"text/javascript\">\n";
-      echo "$( document ).ready(function() {\n";
-      foreach ($app['jsScripts'] as $key => $jsScript) {
-        echo $jsScript . "\n";
-      }
-      echo "});\n";
-      echo "</script>\n";
-    }
-    ?>
+    <?php layout_end_body(); ?>
   </body>
 </html>

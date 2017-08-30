@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 29, 2017 at 11:36 AM
+-- Generation Time: Aug 30, 2017 at 05:15 AM
 -- Server version: 10.1.10-MariaDB
 -- PHP Version: 5.6.15
 
@@ -75,6 +75,7 @@ CREATE TABLE `user` (
   `password` varchar(100) NOT NULL,
   `email` varchar(100) NOT NULL,
   `status` int(2) NOT NULL,
+  `is_admin` tinyint(1) NOT NULL,
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -83,9 +84,9 @@ CREATE TABLE `user` (
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`id`, `username`, `password`, `email`, `status`, `created_at`, `updated_at`) VALUES
-(1, 'admin', '$2y$11$dy1L7AlC93VPEznZDF7ETOE00564gk0T4Wj4H5080MAo2FxTpXNA2', 'admin@localhost.com', 1, '2017-08-28 10:02:18', '2017-08-28 10:02:18'),
-(2, 'surakit.c', '$2y$11$XcP665UzIbZn4bxztLHKueVnjw5.cb/sZ3238exsWx9F0GD3m7u8u', 'customer01@email.com', 1, '2017-08-29 10:38:18', '2017-08-29 10:38:18');
+INSERT INTO `user` (`id`, `username`, `password`, `email`, `status`, `is_admin`, `created_at`, `updated_at`) VALUES
+(1, 'admin', '$2y$11$dy1L7AlC93VPEznZDF7ETOE00564gk0T4Wj4H5080MAo2FxTpXNA2', 'admin@localhost.com', 1, 1, '2017-08-28 10:02:18', '2017-08-28 10:02:18'),
+(2, 'surakit.c', '$2y$11$XcP665UzIbZn4bxztLHKueVnjw5.cb/sZ3238exsWx9F0GD3m7u8u', 'customer01@email.com', 1, 0, '2017-08-29 10:38:18', '2017-08-29 10:38:18');
 
 --
 -- Indexes for dumped tables

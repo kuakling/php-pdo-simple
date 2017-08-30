@@ -38,6 +38,7 @@ if($_POST) {
             'username' => $result['username'],
             'email' => $result['email'],
             'status' => $result['status'],
+            'is_admin' => intval($result['is_admin']),
             'created_at' => $result['created_at'],
             'updated_at' => $result['updated_at'],
           ],

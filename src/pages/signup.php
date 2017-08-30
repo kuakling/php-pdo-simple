@@ -43,6 +43,7 @@ if($_POST) {
       'password' => $password_hash,
       'email' => $_POST['email'],
       'status' => 1,
+      'is_admin' => 0,
       'created_at' => date('Y-m-d h:i:s'),
       'updated_at' => date('Y-m-d h:i:s'),
     ]);

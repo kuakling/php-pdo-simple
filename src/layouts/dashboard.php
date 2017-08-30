@@ -56,7 +56,7 @@
               <a class="nav-link" href="?page=admin/product_type/index">Product Type</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Supplier</a>
+              <a class="nav-link" href="?page=admin/supplier/index">Supplier</a>
             </li>
           </ul>
         </nav>

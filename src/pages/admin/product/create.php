@@ -45,7 +45,7 @@ if($_POST) {
 
 }
 
-$app['pageTitle'] = "เพิ่มข้อมูลร้านคู่ค้า";
+$app['pageTitle'] = "เพิ่มข้อมูลสินค้า";
 
 $formData = [
   'name' => '',

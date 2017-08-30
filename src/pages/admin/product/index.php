@@ -1,6 +1,6 @@
 <?php admin_init(); ?>
 <?php
-$sth = $app['db']->prepare("SELECT * FROM product");
+$sth = $app['db']->prepare("SELECT * FROM product INNER JOIN product_type ON product.type_id = product_type.id");
 $sth->execute();
 $result = $sth->fetchAll(PDO::FETCH_ASSOC);
 
@@ -27,7 +27,7 @@ $app['pageTitle'] = "สินค้า";
       <td><?= $row['name']; ?></td>
       <td><?= $row['price']; ?></td>
       <td><?= $row['qty']; ?></td>
-      <td><?= $row['type_id']; ?></td>
+      <td><?= $row['type_name']; ?></td>
       <td class="text-center">
         <a href="?page=admin/product/view&id=<?= $row['id'] ?>" class="btn btn-info btn-sm">ดู</a>
         <a href="?page=admin/product/update&id=<?= $row['id'] ?>" class="btn btn-primary btn-sm">แก้ไข</a>

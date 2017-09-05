@@ -28,11 +28,61 @@ $pageCount = ceil($rowCount/$limit);
 $app['pageTitle'] = "สินค้า";
 ?>
 
-<h2><?= $app['pageTitle']; ?></h2>
-<a href="?page=admin/product/create" class="btn btn-success">
-  <i class="fa fa-plus" aria-hidden="true"></i>
-  เพิ่มข้อมูล
-</a>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="?page=admin/product/index"><?= $app['pageTitle']; ?></a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link text-success" href="?page=admin/product/create">
+          <i class="fa fa-plus" aria-hidden="true"></i>
+          เพิ่มข้อมูล <span class="sr-only">(current)</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link text-info" href="?page=admin/product/print">
+          <i class="fa fa-print" aria-hidden="true"></i>
+          พิมพ์
+        </a>
+      </li>
+    </ul>
+    <form class="form-inline my-2 my-lg-0" method="get">
+      <input type="hidden" name="page" value="admin/product/index">
+      <div class="form-group">
+        <select id="field" name="field" class="form-control">
+          <option value=""> -- All --</option>
+          <option value="name">Name</option>
+          <option value="product_detail">Detail</option>
+          <option value="price">Price</option>
+          <option value="qty">Qty</option>
+          <option value="size">Size</option>
+          <option value="type_id">Type</option>
+          <option value="supplier_id">Supplier</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <select id="operator" name="operator" class="form-control">
+          <option value="=">=</option>
+          <option value=">">></option>
+          <option value=">=">>=</option>
+          <option value="<"><</option>
+          <option value="<="><=</option>
+          <option value="!=">!=</option>
+          <option value="LIKE">LIKE %...%</option>
+        </select>
+      </div>
+
+      <div class="input-group mb-2 mb-sm-0">
+        <input type="text" class="form-control" id="search" name="search" placeholder="Search">
+        <button class="btn btn-outline-success my-2 my-sm-0 input-group-addon" type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
+      </div>
+    </form>
+  </div>
+</nav>
 <table class="table table-striped table-bordered">
   <thead>
     <tr>

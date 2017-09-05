@@ -62,4 +62,17 @@ function layout_end_body() {
     echo "</script>\n";
   }
 }
+
+
+function sql_operators() {
+  return [
+    '=' => '=',
+    '>' => '>',
+    '>=' => '>=',
+    '<' => '<',
+    '<=' => '<=',
+    '!=' => '!=',
+    'LIKE' => 'LIKE %...%'
+  ];
+}
 ?>

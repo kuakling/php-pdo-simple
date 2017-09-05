@@ -8,11 +8,23 @@ $keyword = $search;
 $field = (isset($_GET['field'])) ? $_GET['field'] : null;
 $operator = (isset($_GET['operator'])) ? $_GET['operator'] : null;
 
-$sql['columns'] = " product.*, product_type.type_name";
-$sql['table'] = " FROM product INNER JOIN product_type ON product.type_id = product_type.id";
-if($search && $field && $operator){
+$sql['columns'] = " product.*, product_type.type_name, supplier.supplier_name";
+$sql['table'] = " FROM product
+  INNER JOIN product_type ON product.type_id = product_type.id
+  INNER JOIN supplier ON product.supplier_id = supplier.id";
+if($search && $operator){
   if($operator === 'LIKE') { $search = "%{$search}%"; }
-  $where = " WHERE {$field} {$operator} :keyword";
+  if(empty($field)){
+    $where = " WHERE name $operator :keyword OR
+    product_detail $operator :keyword OR
+    price $operator :keyword OR
+    qty $operator :keyword OR
+    size $operator :keyword OR
+    type_name $operator :keyword OR
+    supplier_name $operator :keyword";
+  }else{
+    $where = " WHERE {$field} {$operator} :keyword";
+  }
   $sql['table'] .= $where;
 }
 $sql['page'] = " LIMIT $limit OFFSET $offset";
@@ -21,7 +33,7 @@ $sql['page'] = " LIMIT $limit OFFSET $offset";
 
 
 $prepare['page'] = "SELECT" . $sql['columns'] . $sql['table'] . $sql['page'];
-echo $prepare['page'];
+// echo $prepare['page'];
 //SELECT product.*, product_type.type_name FROM product INNER JOIN product_type ON product.type_id = product_type.id LIMIT 5 OFFSET 0
 
 $prepare['count'] = "SELECT count(*) as count" . $sql['table'];
@@ -100,6 +112,7 @@ $app['pageTitle'] = "สินค้า";
       <th>Price</th>
       <th>Qty</th>
       <th>Type</th>
+      <th>Sullpier</th>
       <th style="width: 80px;" class="text-center">Action</th>
     </tr>
   </thead>
@@ -111,6 +124,7 @@ $app['pageTitle'] = "สินค้า";
       <td><?= $row['price']; ?></td>
       <td><?= $row['qty']; ?></td>
       <td><?= $row['type_name']; ?></td>
+      <td><?= $row['supplier_name']; ?></td>
       <td class="text-center">
         <a href="?page=admin/product/view&id=<?= $row['id'] ?>" class="text-info"><i class="fa fa-eye" aria-hidden="true"></i></a>
         <a href="?page=admin/product/update&id=<?= $row['id'] ?>" class="text-primary"><i class="fa fa-pencil" aria-hidden="true"></i></a>

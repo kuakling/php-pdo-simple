@@ -80,6 +80,9 @@
   </div>
 
   <div class="form-group">
+    <?php if($formData['image']) : ?>
+    <img src="uploads/product/images/<?= $formData['image']; ?>" alt="" style="max-width: 100px;"><br />
+    <?php endif; ?>
     <label for="image">ภาพ</label>
     <input
       type="file"

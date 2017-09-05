@@ -1,25 +1,63 @@
 <?php admin_init(); ?>
 <?php
+$sth = $app['db']->prepare("SELECT * FROM product WHERE id=:id");
+$sth->execute([
+  'id' => $_GET['id']
+]);
+$formData = $sth->fetch(PDO::FETCH_ASSOC);
+
 $errors = [];
 if($_POST) {
-  if($_POST['supplier_name'] == "") {
-    $errors['supplier_name'] = 'กรุณาระบุ ชื่อประเภทสินค้า';
+  if($_POST['name'] == "") {
+    $errors['name'] = 'กรุณาระบุ ชื่อสินค้า';
   }
-  if($_POST['address'] == "") {
-    $errors['address'] = 'กรุณาระบุ ที่อยู่';
+  if($_POST['price'] == "") {
+    $errors['price'] = 'กรุณาระบุ ราคาสินค้า';
   }
-  if($_POST['telephone'] == "") {
-    $errors['telephone'] = 'กรุณาระบุ หมายเลขโทรศัพท์';
+  if($_POST['qty'] == "") {
+    $errors['qty'] = 'กรุณาระบุ จำนวนคงเหลือ';
+  }
+  if($_POST['type_id'] == "") {
+    $errors['type_id'] = 'กรุณาระบุ ประเภทสินค้า';
+  }
+  if($_POST['supplier_id'] == "") {
+    $errors['supplier_id'] = 'กรุณาระบุ ร้านคู่ค้า';
   }
 
   if(!$errors){
-    $stmt = $app['db']->prepare("UPDATE supplier SET supplier_name=:supplier_name, address=:address, telephone=:telephone, detail=:detail WHERE id=:id");
+    //Upload Product image
+    $dbImage = $formData['image'];
+    if($_FILES && !$_FILES['image']['error']){
+      $dir['base'] = $app['uploadDir'];
+      $dir['sub'] = 'product/images';
+      $dir['upload'] = $dir['base'] . '/' . $dir['sub'];
+      $fileName = time() . '_' . $_FILES['image']['name'];
+      if(move_uploaded_file($_FILES['image']['tmp_name'], "{$dir['upload']}/{$fileName}")){
+        unlink("{$dir['upload']}/$dbImage");
+        $dbImage = $fileName;
+      }
+    }
+
+    $sql = "UPDATE product SET name=:name,
+      product_detail=:product_detail,
+      price=:price,
+      qty=:qty,
+      size=:size,
+      type_id=:type_id,
+      image=:image,
+      supplier_id=:supplier_id
+      WHERE id=:id";
+    $stmt = $app['db']->prepare($sql);
     $stmt->execute([
-      'supplier_name' => $_POST['supplier_name'],
-      'address' => $_POST['address'],
-      'telephone' => $_POST['telephone'],
-      'detail' => $_POST['detail'],
-      'id' => $_GET['id'],
+      'name' => $_POST['name'],
+      'product_detail' => $_POST['product_detail'],
+      'price' => $_POST['price'],
+      'qty' => $_POST['qty'],
+      'size' => $_POST['size'],
+      'type_id' => $_POST['type_id'],
+      'image' => $dbImage,
+      'supplier_id' => $_POST['supplier_id'],
+      'id' => $_GET['id']
     ]);
 
     $errorInfo = $stmt->errorInfo();
@@ -29,19 +67,15 @@ if($_POST) {
         'text' => $errorInfo[2]
       ];
     }else{
-      header('location: ?page=admin/supplier/update&id='.$_GET['id']);
+      header('location: ?page=admin/product/update&id='.$_GET['id']);
       exit();
     }
   }
 
 }
 
-$sth = $app['db']->prepare("SELECT * FROM supplier WHERE id=:id");
-$sth->execute([
-  'id' => $_GET['id']
-]);
-$formData = $sth->fetch(PDO::FETCH_ASSOC);
-$app['pageTitle'] = "แก้ไขข้อมูลร้านคู่ค้า: ".$formData['supplier_name'];
+
+$app['pageTitle'] = "แก้ไขข้อมูลสินค้า: ".$formData['name'];
 ?>
 <h2><?= $app['pageTitle']; ?></h2>
 

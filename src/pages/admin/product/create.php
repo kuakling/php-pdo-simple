@@ -19,6 +19,18 @@ if($_POST) {
   }
 
   if(!$errors){
+    //Upload Product image
+    $dbImage = "";
+    if($_FILES && !$_FILES['image']['error']){
+      $dir['base'] = $app['uploadDir'];
+      $dir['sub'] = 'product/images';
+      $dir['upload'] = $dir['base'] . '/' . $dir['sub'];
+      $fileName = time() . '_' . $_FILES['image']['name'];
+      if(move_uploaded_file($_FILES['image']['tmp_name'], "{$dir['upload']}/{$fileName}")){
+        $dbImage = $fileName;
+      }
+    }
+
     $stmt = $app['db']->prepare("INSERT INTO product (name, product_detail, price, qty, size, type_id, image, supplier_id) VALUES (:name, :product_detail, :price, :qty, :size, :type_id, :image, :supplier_id)");
     $stmt->execute([
       'name' => $_POST['name'],
@@ -27,7 +39,7 @@ if($_POST) {
       'qty' => $_POST['qty'],
       'size' => $_POST['size'],
       'type_id' => $_POST['type_id'],
-      'image' => $_POST['image'],
+      'image' => $dbImage,
       'supplier_id' => $_POST['supplier_id'],
     ]);
 

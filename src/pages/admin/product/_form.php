@@ -1,4 +1,4 @@
-<form method="post">
+<form method="post" enctype="multipart/form-data">
   <div class="form-group">
     <label for="name">ชื่อสินค้า</label>
     <input
@@ -82,12 +82,10 @@
   <div class="form-group">
     <label for="image">ภาพ</label>
     <input
-      type="text"
-      class="form-control"
+      type="file"
+      class="form-control-file"
       id="image"
       name="image"
-      placeholder="ภาพ"
-      value="<?= $formData['image']; ?>"
     />
   </div>
 

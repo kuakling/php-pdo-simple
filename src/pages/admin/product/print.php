@@ -1,19 +1,22 @@
 <?php admin_init(); ?>
 <?php
+$app['pageTitle'] = "สินค้า";
 $app['layout'] = __DIR__ . '/../../../layouts/pdf.php';
+$mpdfArgs = ['th', 'A4'];
+$mpdfSettings = [
+  'SetWatermarkText' => $app['pageTitle'],
+  'showWatermarkText' => true,
+];
 ?>
 <?php
 $sql = "SELECT product.*, product_type.type_name, supplier.supplier_name FROM product
   INNER JOIN product_type ON product.type_id = product_type.id
   INNER JOIN supplier ON product.supplier_id = supplier.id";
 
-
 $sth = $app['db']->prepare($sql);
 $sth->execute();
 $result = $sth->fetchAll(PDO::FETCH_ASSOC);
 // echo $pageCount;
-
-$app['pageTitle'] = "สินค้า";
 ?>
 
 <style>

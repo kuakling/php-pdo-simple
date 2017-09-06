@@ -1,6 +1,26 @@
 <?php
 require_once(__DIR__ . '/../../assets/mPDF/vendor/autoload.php');
-$mpdf = new mPDF('th');
+$mpdfArgs = isset($mpdfArgs) ? $mpdfArgs : ['th', 'A4'];
+$mpdf = new mPDF(...$mpdfArgs);
+// $mpdf = new mPDF('',    // mode - default ''
+//  '',    // format - A4, for example, default ''
+//  0,     // font size - default 0
+//  '',    // default font family
+//  15,    // margin_left
+//  15,    // margin right
+//  16,     // margin top
+//  16,    // margin bottom
+//  9,     // margin header
+//  9,     // margin footer
+//  'L');  // L - landscape, P - portrait
+$mpdfSettings = isset($mpdfSettings) ? $mpdfSettings : [];
+foreach ($mpdfSettings as $key => $value) {
+  if(method_exists($mpdf, $key)){
+    $mpdf->$key($value);
+  }else{
+    $mpdf->$key = $value;
+  }
+}
 ob_start();
 ?>
 <!DOCTYPE html>

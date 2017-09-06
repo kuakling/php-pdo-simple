@@ -69,7 +69,7 @@ $app['pageTitle'] = "สินค้า";
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link text-info" href="?page=admin/product/print">
+        <a class="nav-link text-info" href="?page=admin/product/print" target="_blank">
           <i class="fa fa-print" aria-hidden="true"></i>
           พิมพ์
         </a>

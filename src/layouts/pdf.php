@@ -1,6 +1,7 @@
 <?php
 require_once(__DIR__ . '/../../assets/mPDF/vendor/autoload.php');
-$mpdf = new mPDF();
+$mpdf = new mPDF('th');
+ob_start();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -10,12 +11,18 @@ $mpdf = new mPDF();
     <meta name="description" content="">
     <meta name="author" content="">
     <title><?php echo $app['pageTitle']; ?></title>
+    <link href="assets/css/pdf.css" rel="stylesheet">
   </head>
 
   <body>
-  <?php
-  $mpdf->WriteHTML($app['content']);
-  $mpdf->Output();
-  ?>
+    <?= $app['content'] ?>
   </body>
 </html>
+
+<?php
+$pdf_html = ob_get_contents();
+ob_end_clean();
+
+$mpdf->WriteHTML($pdf_html);
+$mpdf->Output();
+?>

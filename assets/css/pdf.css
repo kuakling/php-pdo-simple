@@ -1,0 +1,42 @@
+.table {
+  width: 100%;
+  max-width: 100%;
+  border-collapse: collapse;
+}
+.table td, .table th {
+  padding: 2.5mm;
+  vertical-align: top;
+}
+.table thead td, .table thead th {
+  background-color: #333;
+  color: #fff;
+}
+.table-bordered {
+  border: 0.1mm solid #000;
+}
+.table-bordered thead td, .table-bordered thead th {
+  background-color: #555;
+  color: #fff;
+  vertical-align: bottom;
+}
+.table-bordered td, .table-bordered th {
+  border: 0.1mm solid #000;
+}
+.table-striped tbody tr:nth-child(event) {
+  background-color: rgba(0,0,0,.05);
+}
+.summary {
+  background-color: #ccc;
+  padding: 5px;
+  border: #bbb 1px solid;
+}
+
+.text-left {
+  text-align: left!important;
+}
+.text-center {
+  text-align: center!important;
+}
+.text-right {
+  text-align: right!important;
+}

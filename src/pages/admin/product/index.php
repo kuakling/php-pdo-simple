@@ -109,8 +109,8 @@ $app['pageTitle'] = "สินค้า";
     <tr>
       <th style="width: 100px;">ID</th>
       <th>Name</th>
-      <th>Price</th>
-      <th>Qty</th>
+      <th class="text-right">Price</th>
+      <th class="text-right">Qty</th>
       <th>Type</th>
       <th>Sullpier</th>
       <th style="width: 80px;" class="text-center">Action</th>
@@ -121,8 +121,8 @@ $app['pageTitle'] = "สินค้า";
     <tr>
       <th scope="row"><?= $row['id']; ?></th>
       <td><?= $row['name']; ?></td>
-      <td><?= $row['price']; ?></td>
-      <td><?= $row['qty']; ?></td>
+      <td class="text-right"><?= $row['price']; ?></td>
+      <td class="text-right"><?= $row['qty']; ?></td>
       <td><?= $row['type_name']; ?></td>
       <td><?= $row['supplier_name']; ?></td>
       <td class="text-center">

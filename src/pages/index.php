@@ -19,7 +19,9 @@ $result = $sth->fetchAll(PDO::FETCH_ASSOC);
       <?php $product_image = $product['image'] ? "uploads/product/images/{$product['image']}" : "assets/images/no-image.jpg";?>
       <img class="card-img-top" src="<?= $product_image; ?>" alt="<?= $product['name'] ?>" style="height: 150px;">
       <div class="card-body">
-        <h4 class="card-title" style="height: 55px; overflow: hidden;"><?= $product['name'] ?></h4>
+        <h4 class="card-title" style="height: 55px; overflow: hidden;">
+          <a href="?page=product/view&id=<?= $product['id'] ?>"><?= $product['name'] ?></a>
+        </h4>
         <div class="card-text">
           <h2 class="text-danger"><?= number_format($product['price']) ?> ฿</h2>
         </div>

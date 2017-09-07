@@ -13,22 +13,15 @@ $result = $sth->fetchAll(PDO::FETCH_ASSOC);
 ?>
 <h1>Last Products</h1>
 <div class="row">
-  <?php foreach ($result as $product) : ?>
-  <div class="col-sm-4" style="margin-bottom: 15px; margin-top: 15px;">
-    <div class="card">
-      <?php $product_image = $product['image'] ? "uploads/product/images/{$product['image']}" : "assets/images/no-image.jpg";?>
-      <img class="card-img-top" src="<?= $product_image; ?>" alt="<?= $product['name'] ?>" style="height: 150px;">
-      <div class="card-body">
-        <h4 class="card-title" style="height: 55px; overflow: hidden;">
-          <a href="?page=product/view&id=<?= $product['id'] ?>"><?= $product['name'] ?></a>
-        </h4>
-        <div class="card-text">
-          <h2 class="text-danger"><?= number_format($product['price']) ?> ฿</h2>
-        </div>
-        <hr />
-        <a href="#" class="btn btn-outline-primary"><i class="fa fa-cart-plus" aria-hidden="true"></i> Add to cart</a>
-      </div>
-    </div>
-  </div>
-  <?php endforeach; ?>
+  <?php
+  foreach ($result as $product) {
+    include(__DIR__ . '/product/_item.php');
+  }
+  ?>
+</div>
+<hr />
+<div class="text-right">
+  <a href="?page=product/index" class="btn btn-outline-secondary">
+    <i class="fa fa-shopping-bag" aria-hidden="true"></i> สินค้าทั้งหมด
+  </a>
 </div>

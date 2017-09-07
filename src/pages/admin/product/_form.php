@@ -73,7 +73,7 @@
       name="type_id"
     >
       <?php foreach ($result_product_types as $product_type) : ?>
-      <option value="<?= $product_type['id'] ?>"><?= $product_type['type_name'] ?></option>
+      <option value="<?= $product_type['id'] ?>"<?= ($product_type['id'] == $formData['type_id']) ? ' selected' : ''; ?>><?= $product_type['type_name'] ?></option>
       <?php endforeach; ?>
     </select>
     <div class="invalid-feedback"><?php if(isset($errors['type_id'])){ echo $errors['type_id'];}?></div>
@@ -105,7 +105,7 @@
       name="supplier_id"
     >
       <?php foreach ($result_suppliers as $supplier) : ?>
-      <option value="<?= $supplier['id'] ?>"><?= $supplier['supplier_name'] ?></option>
+      <option value="<?= $supplier['id'] ?>"<?= ($supplier['id'] == $formData['supplier_id']) ? ' selected' : ''; ?>><?= $supplier['supplier_name'] ?></option>
       <?php endforeach; ?>
     </select>
     <div class="invalid-feedback"><?php if(isset($errors['supplier_id'])){ echo $errors['supplier_id'];}?></div>

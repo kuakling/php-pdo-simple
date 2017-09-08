@@ -35,19 +35,25 @@
       <th scope="row"><?= $i ?></th>
       <td><?= $product_id; ?></td>
       <td><?= $product['name']; ?></td>
-      <td class="text-right"><?= number_format($product['price']); ?></td>
+      <td class="text-right">
+        <?= number_format($product['price']); ?>
+        <input type="hidden" class="price_<?=$product_id?>" value="<?=$product['price']?>">
+      </td>
       <td class="text-right">
         <form class="update_amount">
           <div class="form-group">
             <div class="input-group mb-2 mb-sm-0">
-              <input type="text" class="form-control" id="amount_<?=$product_id?>" name="amount[<?=$product_id?>]" value="<?= $item['amount']; ?>">
+              <input type="text" class="form-control amount_<?=$product_id?>" name="amount[<?=$product_id?>]" value="<?= $item['amount']; ?>">
               <button class="btn btn-outline-success my-2 my-sm-0 input-group-addon" type="submit">
                 <i class="fa fa-check" aria-hidden="true"></i>
               </button>
             </div>
         </form>
       </td>
-      <td class="text-right"><?= number_format($price_all); ?></td>
+      <td class="text-right">
+        <span class="price_all_display_<?=$product_id?>"><?= number_format($price_all); ?></span>
+        <input type="hidden" class="price_all_<?=$product_id?>" value="<?=$price_all?>">
+      </td>
       <td><a href="?page=cart/delete&id=<?=$product_id?>" class="text-danger"><i class="fa fa-trash"></i></a></td>
     </tr>
     <?php endforeach; ?>
@@ -75,6 +81,12 @@ $('.update_amount').submit(function(e) {
     data: $(this).serialize(),
     success: function(data) {
       console.log(data);
+      var price = $('.price_'+data.product_id).val();
+      var amount = data.amount;
+      var price_all = price*amount;
+      // alert(price_all);
+      $('.price_all_display_'+data.product_id).text(price_all);
+      $('.price_all_'+data.product_id).val(price_all);
     }
   });
 });

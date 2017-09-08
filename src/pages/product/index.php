@@ -23,6 +23,17 @@ if($search && $operator){
   }
   $sql['table'] .= $where;
 }
+
+if(isset($where)){
+  if(isset($_GET['product_type'])){
+    $sql['table'] .= " AND type_id = {$_GET['product_type']}";
+  }
+}else {
+  if(isset($_GET['product_type'])){
+    $sql['table'] .= " WHERE type_id = {$_GET['product_type']}";
+  }
+}
+
 $sql['page'] = " LIMIT $limit OFFSET $offset";
 
 
@@ -54,6 +65,9 @@ $app['pageTitle'] = "สินค้า";
   <a class="navbar-brand" href="?page=product/index"><?= $app['pageTitle']; ?></a>
   <form class="form-inline" method="get">
     <input type="hidden" name="page" value="product/index">
+    <?php if(isset($_GET['product_type'])){ ?>
+    <input type="hidden" name="product_type" value="<?= $_GET['product_type']; ?>">
+    <?php } ?>
     <div class="form-group">
       <select id="field" name="field" class="form-control">
         <option value=""> -- All --</option>

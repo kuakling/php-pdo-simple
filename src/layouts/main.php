@@ -21,15 +21,20 @@
   <body>
 
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-      <a class="navbar-brand" href="#">Navbar</a>
+      <a class="navbar-brand" href="#">
+        <img src="assets/images/logo.svg" width="30" height="30" alt="">
+      </a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
 
       <div class="collapse navbar-collapse" id="navbarsExampleDefault">
         <ul class="navbar-nav mr-auto">
-          <li class="nav-item active">
+          <li class="nav-item<?= (!isset($_GET['page'])) ? ' active' : '' ?>">
             <a class="nav-link" href="index.php">Home <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item<?= (isset($_GET['page']) && $_GET['page'] == 'product/index') ? ' active' : '' ?>">
+            <a class="nav-link" href="?page=product/index">Product</a>
           </li>
         </ul>
 
@@ -54,11 +59,18 @@
     </nav>
 
     <!-- Main jumbotron for a primary marketing message or call to action -->
-    <div class="jumbotron">
+    <div class="jumbotron" style="
+    padding-top: 5rem;
+    padding-bottom: 2rem;
+    background-image: url(assets/images/logo.svg);
+    background-repeat: no-repeat;
+    background-position: right;
+    background-size: contain;
+    ">
       <div class="container">
-        <h1 class="display-3">Hello, world!</h1>
-        <p>This is a template for a simple marketing or informational website. It includes a large callout called a jumbotron and three supporting pieces of content. Use it as a starting point to create something more unique.</p>
-        <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more &raquo;</a></p>
+        <h1 class="display-4">อ่าวไทยเครื่องเขียน</h1>
+        <hr class="my-4">
+        <p class="lead text-muted" style="font-size: 2rem">Stationery shop</p>
       </div>
     </div>
 
@@ -66,14 +78,17 @@
       <!-- Example row of columns -->
       <div class="row">
         <div class="col-md-3">
+          <?php
+          $sth_product_type = $app['db']->prepare("SELECT * FROM product_type");
+          $sth_product_type->execute();
+          $result_product_type = $sth_product_type->fetchAll(PDO::FETCH_ASSOC);
+          ?>
           <div class="list-group">
-            <a href="#" class="list-group-item active">
-              Cras justo odio
+            <?php foreach ($result_product_type as $row) : ?>
+            <a href="?page=product/index&product_type=<?=$row['id']?>" class="list-group-item<?= (isset($_GET['product_type']) && $_GET['product_type'] == $row['id']) ? ' active' : '' ?>">
+              <?= $row['type_name']; ?>
             </a>
-            <a href="#" class="list-group-item list-group-item-action">Dapibus ac facilisis in</a>
-            <a href="#" class="list-group-item list-group-item-action">Morbi leo risus</a>
-            <a href="#" class="list-group-item list-group-item-action">Porta ac consectetur ac</a>
-            <a href="#" class="list-group-item list-group-item-action disabled">Vestibulum at eros</a>
+            <?php endforeach; ?>
           </div>
         </div>
         <div class="col-md-9">

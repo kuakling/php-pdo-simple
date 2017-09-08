@@ -86,20 +86,20 @@ $app['pageTitle'] = "สินค้า";
   }
   ?>
 </div>
-
 <nav aria-label="Page navigation example">
   <ul class="pagination">
     <li class="page-item<?= ($p == 1) ? ' disabled' : '' ?>">
-      <a class="page-link" href="?page=product/index&p=<?= $p-1; ?>" aria-label="Previous">
+      <a class="page-link" href="<?= create_url('', ['p' => ($p-1)])?>" aria-label="Previous">
         <span aria-hidden="true">&laquo;</span>
         <span class="sr-only">Previous</span>
       </a>
     </li>
     <?php for($i=1; $i<=$pageCount; $i++) : ?>
-    <li class="page-item<?= ($p == $i) ? ' active' : '' ?>"><a class="page-link" href="?page=product/index&p=<?= $i; ?>"><?= $i; ?></a></li>
+    <li class="page-item<?= ($p == $i) ? ' active' : '' ?>">
+      <a class="page-link" href="<?= create_url('', ['p' => $i])?>"><?= $i; ?></a></li>
     <?php endfor; ?>
     <li class="page-item<?= ($p >= $pageCount) ? ' disabled' : '' ?>">
-      <a class="page-link" href="?page=product/index&p=<?= $p+1; ?>" aria-label="Next">
+      <a class="page-link" href="<?= create_url('', ['p' => ($p+1)])?>" aria-label="Next">
         <span aria-hidden="true">&raquo;</span>
         <span class="sr-only">Next</span>
       </a>

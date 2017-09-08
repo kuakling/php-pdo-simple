@@ -37,7 +37,12 @@
             <a class="nav-link" href="?page=product/index">Product</a>
           </li>
           <li class="nav-item<?= (isset($_GET['page']) && $_GET['page'] == 'cart/index') ? ' active' : '' ?>">
-            <a class="nav-link" href="?page=cart/index">Cart</a>
+            <a class="nav-link" href="?page=cart/index">
+              Cart
+              <?php if(isset($_SESSION['cart']) && count($_SESSION['cart']) > 0) { ?>
+              <span class="badge badge-pill badge-danger"><?= count($_SESSION['cart']) ?></span>
+              <?php } ?>
+            </a>
           </li>
         </ul>
 

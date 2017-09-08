@@ -5,7 +5,7 @@
       <th>รหัสสินค้า</th>
       <th>ชื่อสินค้า</th>
       <th class="text-right">ราคา/หน่วย</th>
-      <th class="text-right" style="width: 150px;">จำนวน</th>
+      <th class="text-right" style="width: 130px;">จำนวน</th>
       <th class="text-right">ราคารวม</th>
       <th>...</th>
     </tr>
@@ -47,7 +47,7 @@
             </div>
         </form>
       </td>
-      <td class="text-right"><?= $price_all; ?></td>
+      <td class="text-right"><?= number_format($price_all); ?></td>
       <td><a href="?page=cart/delete&id=<?=$product_id?>" class="text-danger"><i class="fa fa-trash"></i></a></td>
     </tr>
     <?php endforeach; ?>

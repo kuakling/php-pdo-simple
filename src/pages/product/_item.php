@@ -10,7 +10,7 @@
         <h2 class="text-danger"><?= number_format($product['price']) ?> ฿</h2>
       </div>
       <hr />
-      <a href="#" class="btn btn-outline-primary"><i class="fa fa-cart-plus" aria-hidden="true"></i> หยิบใส่ตะกร้า</a>
+      <a href="?page=cart/add&id=<?= $product['id'] ?>" class="btn btn-outline-primary"><i class="fa fa-cart-plus" aria-hidden="true"></i> หยิบใส่ตะกร้า</a>
     </div>
   </div>
 </div>

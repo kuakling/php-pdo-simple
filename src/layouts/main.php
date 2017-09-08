@@ -36,6 +36,9 @@
           <li class="nav-item<?= (isset($_GET['page']) && $_GET['page'] == 'product/index') ? ' active' : '' ?>">
             <a class="nav-link" href="?page=product/index">Product</a>
           </li>
+          <li class="nav-item<?= (isset($_GET['page']) && $_GET['page'] == 'cart/index') ? ' active' : '' ?>">
+            <a class="nav-link" href="?page=cart/index">Cart</a>
+          </li>
         </ul>
 
         <ul class="navbar-nav  my-2 my-lg-0">
@@ -84,6 +87,12 @@
           $result_product_type = $sth_product_type->fetchAll(PDO::FETCH_ASSOC);
           ?>
           <div class="list-group">
+            <a href="./" class="list-group-item<?= (!isset($_GET['page'])) ? ' active' : '' ?>">
+              หน้าแรก
+            </a>
+            <a href="?page=product/index" class="list-group-item<?= (isset($_GET['page']) && $_GET['page'] == 'product/index') ? ' active' : '' ?>">
+              สินค้าทั้งหมด
+            </a>
             <?php foreach ($result_product_type as $row) : ?>
             <a href="?page=product/index&product_type=<?=$row['id']?>" class="list-group-item<?= (isset($_GET['product_type']) && $_GET['product_type'] == $row['id']) ? ' active' : '' ?>">
               <?= $row['type_name']; ?>

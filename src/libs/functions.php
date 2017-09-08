@@ -79,9 +79,24 @@ function sql_operators() {
 function create_url($file, $params = [], $full=false) {
   $url = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://{$_SERVER['HTTP_HOST']}{$_SERVER['REQUEST_URI']}";
   $parse_url = parse_url($url);
-  parse_str($parse_url['query'], $qs_arr);
+  $qs_arr = [];
+  if(isset($parse_url['query'])){
+    parse_str($parse_url['query'], $qs_arr);
+  }
   $qs_arr = array_merge($qs_arr, $params);
-  $query_string = $file . '?' . http_build_query($qs_arr);
-  return $query_string;
+  $qs_str = http_build_query($qs_arr);
+  if(count($qs_arr) > 0){
+    $link = $file . '?' . $qs_str;
+  }else{
+    $link = $file;
+  }
+
+  if($full){
+    $path = ($file) ? dirname($parse_url['path']) . "/" : $parse_url['path'];
+    $link_base = "{$parse_url['scheme']}://{$parse_url['host']}{$path}";
+    $link = "{$link_base}$link";
+  }
+  
+  return $link;
 }
 ?>

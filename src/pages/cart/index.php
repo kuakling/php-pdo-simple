@@ -52,7 +52,7 @@
       </td>
       <td class="text-right">
         <span class="price_all_display_<?=$product_id?>"><?= number_format($price_all); ?></span>
-        <input type="hidden" class="price_all_<?=$product_id?>" value="<?=$price_all?>">
+        <input type="hidden" class="price_all_<?=$product_id?>" name="price_all[<?=$product_id?>]" value="<?=$price_all?>">
       </td>
       <td><a href="?page=cart/delete&id=<?=$product_id?>" class="text-danger"><i class="fa fa-trash"></i></a></td>
     </tr>
@@ -61,7 +61,7 @@
   <tfoot class="table-warning" style="font-weight: bold;">
     <tr>
       <td colspan="5" class="text-right">ราคาสุทธิ</td>
-      <td class="text-right"><?=number_format($price_total)?></td>
+      <td class="text-right price_total"><?=number_format($price_total)?></td>
       <td></td>
     </tr>
   </tfoot>
@@ -84,9 +84,15 @@ $('.update_amount').submit(function(e) {
       var price = $('.price_'+data.product_id).val();
       var amount = data.amount;
       var price_all = price*amount;
-      // alert(price_all);
       $('.price_all_display_'+data.product_id).text(price_all);
       $('.price_all_'+data.product_id).val(price_all);
+
+      var items = $('input[name^=\"price_all\"]');
+      var price_total = 0;
+      items.each(function() {
+        price_total += parseInt($(this).val());
+      });
+      $('.price_total').text(price_total);
     }
   });
 });

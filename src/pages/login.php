@@ -69,11 +69,14 @@ if($_POST) {
           <input type="password" class="form-control<?php if(isset($errors['password'])){ echo " is-invalid";}?>" id="password" name="password" placeholder="Password">
           <div class="invalid-feedback"><?php if(isset($errors['password'])){ echo $errors['password'];}?></div>
         </div>
-        <button type="submit" class="btn btn-primary">Login</button>
+        <button type="submit" class="btn btn-primary">
+          <i class="fa fa-sign-in" aria-hidden="true"></i>
+          Login
+        </button>
       </form>
     </div>
     <hr />
-    <a href="index.php" class="card-link">Home</a>
-    <a href="?page=signup" class="card-link">Signup</a>
+    <a href="index.php" class="card-link"><i class="fa fa-home" aria-hidden="true"></i> Home</a>
+    <a href="?page=signup" class="card-link"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Signup</a>
   </div>
 </div>

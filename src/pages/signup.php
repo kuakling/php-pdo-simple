@@ -83,12 +83,15 @@ if($_POST) {
            <input type="text" class="form-control<?php if(isset($errors['email'])){ echo " is-invalid";}?>" id="email" name="email" placeholder="e-Mail">
            <div class="invalid-feedback"><?php if(isset($errors['email'])){ echo $errors['email'];}?></div>
          </div>
-         <button type="submit" class="btn btn-primary">Signup</button>
+         <button type="submit" class="btn btn-primary">
+           <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+           Signup
+         </button>
          <br />
        </form>
      </div>
      <hr />
-     <a href="index.php" class="card-link">Home</a>
-     <a href="?page=login" class="card-link">Login</a>
+     <a href="index.php" class="card-link"><i class="fa fa-home" aria-hidden="true"></i> Home</a>
+     <a href="?page=login" class="card-link"><i class="fa fa-sign-in" aria-hidden="true"></i> Login</a>
    </div>
  </div>

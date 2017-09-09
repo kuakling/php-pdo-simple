@@ -31,13 +31,20 @@
       <div class="collapse navbar-collapse" id="navbarsExampleDefault">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item<?= (!isset($_GET['page'])) ? ' active' : '' ?>">
-            <a class="nav-link" href="index.php">Home <span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="index.php">
+              <i class="fa fa-home" aria-hidden="true"></i>
+              Home <span class="sr-only">(current)</span>
+            </a>
           </li>
           <li class="nav-item<?= (isset($_GET['page']) && $_GET['page'] == 'product/index') ? ' active' : '' ?>">
-            <a class="nav-link" href="?page=product/index">Product</a>
+            <a class="nav-link" href="?page=product/index">
+              <i class="fa fa-shopping-bag" aria-hidden="true"></i>
+              Product
+            </a>
           </li>
           <li class="nav-item<?= (isset($_GET['page']) && $_GET['page'] == 'cart/index') ? ' active' : '' ?>">
             <a class="nav-link" href="?page=cart/index">
+              <i class="fa fa-shopping-cart" aria-hidden="true"></i>
               Cart
               <?php if(isset($_SESSION['cart']) && count($_SESSION['cart']) > 0) { ?>
               <span class="badge badge-pill badge-danger"><?= count($_SESSION['cart']) ?></span>
@@ -49,17 +56,29 @@
         <ul class="navbar-nav  my-2 my-lg-0">
           <?php if(isset($_SESSION['auth']) && $_SESSION['auth']['isAuthenticated']){ ?>
           <li class="nav-item">
-            <span class="navbar-text"><?php echo $_SESSION['auth']['user']['username']; ?></span>
+            <span class="navbar-text">
+              <i class="fa fa-user" aria-hidden="true"></i>
+              <?php echo $_SESSION['auth']['user']['username']; ?>
+            </span>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="?page=logout">Logout</a>
+            <a class="nav-link" href="?page=logout">
+              <i class="fa fa-sign-out" aria-hidden="true"></i>
+              Logout
+            </a>
           </li>
           <?php } else { ?>
           <li class="nav-item">
-            <a class="nav-link" href="?page=signup">Signup</a>
+            <a class="nav-link" href="?page=signup">
+              <i class="fa fa-pencil-square-o" aria-hidden="true"></i> 
+              Signup
+            </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="?page=login">Login</a>
+            <a class="nav-link" href="?page=login">
+              <i class="fa fa-sign-in" aria-hidden="true"></i>
+              Login
+            </a>
           </li>
           <?php } ?>
         </ul>

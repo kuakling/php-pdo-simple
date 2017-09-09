@@ -1,3 +1,19 @@
+<div class="row">
+  <div class="container-fluid">
+    <div class="text-center">
+      <img src="assets/images/logo.svg" width="100" class="pull-left">
+      <h3>อ่าวไทยเครื่องเขียน</h3>
+      123 ถ.เจริญประดิษฐ์ ต.รูสะมิแล<br />อ.เมือง จ.ปัตตานี 94000
+    </div>
+    <hr />
+    <div class="">
+      <h4>ผู้ซื้อ</h4>
+      <?= $_SESSION['auth']['user']['username']; ?>
+    </div>
+  </div>
+</div>
+
+
 <table class="table table-striped border">
   <thead class="thead-inverse">
     <tr>
@@ -7,7 +23,6 @@
       <th class="text-right">ราคา/หน่วย</th>
       <th class="text-right" style="width: 130px;">จำนวน</th>
       <th class="text-right">ราคารวม</th>
-      <th>...</th>
     </tr>
   </thead>
   <tbody>
@@ -36,18 +51,9 @@
       <td><?= $product['name']; ?></td>
       <td class="text-right"><?= number_format($product['price']); ?></td>
       <td class="text-right">
-        <form class="update_amount" action="?page=cart/update" method="post">
-          <div class="form-group">
-            <div class="input-group mb-2 mb-sm-0">
-              <input type="text" class="form-control amount_<?=$product_id?>" name="amount[<?=$product_id?>]" value="<?= $item['amount']; ?>">
-              <button class="btn btn-outline-success my-2 my-sm-0 input-group-addon" type="submit">
-                <i class="fa fa-check" aria-hidden="true"></i>
-              </button>
-            </div>
-        </form>
+        <?= $item['amount']; ?>
       </td>
       <td class="text-right"><?= number_format($price_all); ?></td>
-      <td><a href="?page=cart/delete&id=<?=$product_id?>" class="text-danger"><i class="fa fa-trash"></i></a></td>
     </tr>
     <?php endforeach; ?>
   </tbody>
@@ -55,18 +61,13 @@
     <tr>
       <td colspan="5" class="text-right">ราคาสุทธิ</td>
       <td class="text-right price_total"><?=number_format($price_total)?></td>
-      <td></td>
     </tr>
   </tfoot>
 </table>
 
 <div class="text-right">
-  <a href="?page=cart/clear" class="btn btn-outline-danger">
-    <i class="fa fa-trash"></i>
-    ยกเลิกตะกร้าสินค้า
-  </a>
   <a href="?page=cart/check-out" class="btn btn-primary">
     <i class="fa fa-check"></i>
-    เช็คเอาท์
+    ยืนยันการสั่งซื้อ
   </a>
 </div>

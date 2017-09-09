@@ -37,16 +37,34 @@ if($_POST) {
       'salt' => mcrypt_create_iv(22, MCRYPT_DEV_URANDOM),
     ];
     $password_hash = password_hash($_POST['password'], PASSWORD_BCRYPT, $options);
-    $stmt = $app['db']->prepare("INSERT INTO user (username, password, email, status, created_at, updated_at) VALUES (:username, :password, :email, :status, :created_at, :updated_at)");
-    $stmt->execute([
-      'username' => $_POST['username'],
-      'password' => $password_hash,
-      'email' => $_POST['email'],
-      'status' => 1,
-      'is_admin' => 0,
-      'created_at' => date('Y-m-d h:i:s'),
-      'updated_at' => date('Y-m-d h:i:s'),
-    ]);
+    try {
+      $app['db']->beginTransaction();
+      $stmt = $app['db']->prepare("INSERT INTO user (username, password, email, status, is_admin, created_at, updated_at) VALUES (:username, :password, :email, :status, :is_admin, :created_at, :updated_at)");
+      $stmt->execute([
+        'username' => $_POST['username'],
+        'password' => $password_hash,
+        'email' => $_POST['email'],
+        'status' => 1,
+        'is_admin' => 0,
+        'created_at' => date('Y-m-d h:i:s'),
+        'updated_at' => date('Y-m-d h:i:s'),
+      ]);
+
+      $stmt2 = $app['db']->prepare("INSERT INTO user_profile (id, created_at, updated_at) VALUES (:id, :created_at, :updated_at)");
+      $stmt2->execute([
+        'id' => $app['db']->lastInsertId(),
+        'created_at' => date('Y-m-d h:i:s'),
+        'updated_at' => date('Y-m-d h:i:s'),
+      ]);
+      $app['db']->commit();
+    }catch(PDOExecption $e) {
+      $app['db']->rollback();
+      $app['flashMessages'][] = [
+        'type' => 'warning',
+        'text' => $e->getMessage()
+      ];
+    }
+
 
     $errorInfo = $stmt->errorInfo();
     if($errorInfo[2]){

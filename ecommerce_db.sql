@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 05, 2017 at 09:06 AM
+-- Generation Time: Sep 09, 2017 at 09:11 AM
 -- Server version: 10.1.10-MariaDB
 -- PHP Version: 5.6.15
 
@@ -63,8 +63,10 @@ INSERT INTO `product` (`id`, `name`, `product_detail`, `price`, `qty`, `size`, `
 (18, 'คิ้วสันรูด 5มม A4 โปรเกรส คละลาย (การ์ตูน) ', 'ยี่ห้อ: โปรกราส', 49, 159, '', 2, '', 4),
 (19, 'กีตาร์กลาง444', '', 1599, 3, '', 4, '', 6),
 (20, 'ตราช้างเครื่องเย็บกระดาษ เบอร์ LE-45F', 'ยี่ห้อ: ช้าง (Elephant)', 249, 20, '', 3, '', 3),
-(21, 'ยางลบสเต็ดเล่อร์ 50 ก้อน #526 35 B สีดำ', 'ยี่ห้อ: สเต็ดเล่อร์ (STAEDTLER)', 199, 54, '', 7, '', 1),
-(22, 'กบเหลา ทรงกลมรูปลูกบอล HC-8005', '', 255, 33, '', 6, '', 2);
+(21, 'ยางลบสเต็ดเล่อร์ 50 ก้อน #526 35 B สีดำ', 'ยี่ห้อ: สเต็ดเล่อร์ (STAEDTLER)', 199, 54, '', 7, '1504751231_1006352.jpg', 6),
+(22, 'กบเหลา ทรงกลมรูปลูกบอล HC-8005', '', 255, 33, '', 6, '1504749840_6959837680050-800x800.jpg', 2),
+(23, 'test', '', 224, 500, '', 1, '1504605163_html_vs_css.png', 1),
+(24, '111111', '', 199, 500, '', 2, '', 1);
 
 -- --------------------------------------------------------
 
@@ -147,8 +149,30 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id`, `username`, `password`, `email`, `status`, `is_admin`, `created_at`, `updated_at`) VALUES
-(1, 'admin', '$2y$11$dy1L7AlC93VPEznZDF7ETOE00564gk0T4Wj4H5080MAo2FxTpXNA2', 'admin@localhost.com', 1, 1, '2017-08-28 10:02:18', '2017-08-28 10:02:18'),
-(2, 'surakit.c', '$2y$11$XcP665UzIbZn4bxztLHKueVnjw5.cb/sZ3238exsWx9F0GD3m7u8u', 'customer01@email.com', 1, 0, '2017-08-29 10:38:18', '2017-08-29 10:38:18');
+(1, 'admin', '$2y$11$8ehpBNqg7C4oKiBMRKcJL.YxmBScZQws0yWqmqQYs14JDgJi7zK1.', 'admin@localhost.com', 1, 0, '2017-09-09 09:08:43', '2017-09-09 09:08:43');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user_profile`
+--
+
+CREATE TABLE `user_profile` (
+  `id` int(11) NOT NULL,
+  `fullname` varchar(100) DEFAULT NULL,
+  `address` varchar(255) DEFAULT NULL,
+  `gender` tinyint(1) DEFAULT NULL,
+  `tel` varchar(100) DEFAULT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `user_profile`
+--
+
+INSERT INTO `user_profile` (`id`, `fullname`, `address`, `gender`, `tel`, `created_at`, `updated_at`) VALUES
+(1, NULL, NULL, NULL, NULL, '2017-09-09 09:08:43', '2017-09-09 09:08:43');
 
 --
 -- Indexes for dumped tables
@@ -181,6 +205,12 @@ ALTER TABLE `user`
   ADD UNIQUE KEY `email` (`email`);
 
 --
+-- Indexes for table `user_profile`
+--
+ALTER TABLE `user_profile`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -188,7 +218,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `product`
 --
 ALTER TABLE `product`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 --
 -- AUTO_INCREMENT for table `product_type`
 --
@@ -203,7 +233,7 @@ ALTER TABLE `supplier`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

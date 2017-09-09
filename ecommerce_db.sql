@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 09, 2017 at 09:11 AM
+-- Generation Time: Sep 09, 2017 at 09:56 AM
 -- Server version: 10.1.10-MariaDB
 -- PHP Version: 5.6.15
 
@@ -172,7 +172,7 @@ CREATE TABLE `user_profile` (
 --
 
 INSERT INTO `user_profile` (`id`, `fullname`, `address`, `gender`, `tel`, `created_at`, `updated_at`) VALUES
-(1, NULL, NULL, NULL, NULL, '2017-09-09 09:08:43', '2017-09-09 09:08:43');
+(1, 'แอดมิน', '123', 2, '0856289710', '2017-09-09 09:08:43', '2017-09-09 09:08:43');
 
 --
 -- Indexes for dumped tables

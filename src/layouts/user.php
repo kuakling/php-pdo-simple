@@ -98,6 +98,9 @@
             <a href="?page=user/index" class="list-group-item<?= (isset($_GET['page']) && $_GET['page'] == 'user/index') ? ' active' : '' ?>">
               ข้อมูลผู้ใช้
             </a>
+            <a href="?page=user/change-password" class="list-group-item<?= (isset($_GET['page']) && $_GET['page'] == 'user/change-password') ? ' active' : '' ?>">
+              เปลี่ยนรหัสผ่าน
+            </a>
           </div>
         </div>
         <div class="col-md-9">

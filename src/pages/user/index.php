@@ -1,6 +1,6 @@
 <?php user_init(); ?>
 <?php
-$sth = $app['db']->prepare("SELECT * FROM user_profile WHERE id=:id");
+$sth = $app['db']->prepare("SELECT user_profile.*, user.* FROM user_profile INNER JOIN user ON user_profile.id = user.id WHERE user_profile.id=:id");
 $sth->execute([
   'id' => $_SESSION['auth']['user']['id']
 ]);
@@ -23,6 +23,10 @@ if($_POST) {
 }
 ?>
 <form method="post">
+  <div class="form-group">
+    <label for="email">E-Mail</label>
+    <input type="text" class="form-control" value="<?=$result['email']?>" disabled>
+  </div>
   <div class="form-group">
     <label for="fullname">Full Name</label>
     <input type="text" class="form-control" id="fullname" name="fullname" placeholder="Full Name" value="<?=$result['fullname']?>">

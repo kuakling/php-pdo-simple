@@ -58,10 +58,10 @@
         <ul class="navbar-nav  my-2 my-lg-0">
           <?php if(isset($_SESSION['auth']) && $_SESSION['auth']['isAuthenticated']){ ?>
           <li class="nav-item">
-            <span class="navbar-text">
+            <a class="nav-link" href="?page=user/index">
               <i class="fa fa-user" aria-hidden="true"></i>
               <?php echo $_SESSION['auth']['user']['username']; ?>
-            </span>
+            </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="?page=logout">

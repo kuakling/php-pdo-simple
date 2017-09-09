@@ -1,3 +1,14 @@
+<?php
+user_init();
+$app['layout'] = __DIR__ . '/../../layouts/main.php';
+?>
+<?php
+$sth_user = $app['db']->prepare("SELECT user_profile.*, user.* FROM user_profile INNER JOIN user ON user_profile.id = user.id WHERE user_profile.id=:id");
+$sth_user->execute([
+  'id' => $_SESSION['auth']['user']['id']
+]);
+$result_user = $sth_user->fetch(PDO::FETCH_ASSOC);
+?>
 <div class="row">
   <div class="container-fluid">
     <div class="text-center">
@@ -8,7 +19,18 @@
     <hr />
     <div class="">
       <h4>ผู้ซื้อ</h4>
-      <?= $_SESSION['auth']['user']['username']; ?>
+      <div class="">
+        ชื่อ: <?= $result_user['fullname']; ?>
+      </div>
+      <div class="">
+        ที่อยู่: <?= $result_user['address']; ?>
+      </div>
+      <div class="">
+        หมายเลขโทรศัพท์: <?= $result_user['tel']; ?>
+      </div>
+      <div class="">
+        อีเมล์: <?= $result_user['email']; ?>
+      </div>
     </div>
   </div>
 </div>
@@ -66,7 +88,7 @@
 </table>
 
 <div class="text-right">
-  <a href="?page=cart/check-out" class="btn btn-primary">
+  <a href="?page=cart/confirm" class="btn btn-primary">
     <i class="fa fa-check"></i>
     ยืนยันการสั่งซื้อ
   </a>

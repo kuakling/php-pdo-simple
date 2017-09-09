@@ -34,7 +34,7 @@
       <th scope="row"><?= $i ?></th>
       <td><?= $product_id; ?></td>
       <td><?= $product['name']; ?></td>
-      <td class="text-right"><?= number_format($product['price']); ?></td>
+      <td class="text-right"><?= number_format($item['price']); ?></td>
       <td class="text-right">
         <form class="update_amount" action="?page=cart/update" method="post">
           <div class="form-group">

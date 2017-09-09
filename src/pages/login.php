@@ -43,7 +43,13 @@ if($_POST) {
             'updated_at' => $result['updated_at'],
           ],
         ];
-        header('location: index.php');
+        $url = './';
+        if(isset($_SESSION['url_back'])){
+          $url = $_SESSION['url_back'];
+          unset($_SESSION['url_back']);
+        }
+        header("location: {$url}");
+        exit();
       } else {
         echo 'No Invalid password.';
       }

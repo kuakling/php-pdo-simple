@@ -24,6 +24,16 @@ function admin_init() {
   $app['layout'] = __DIR__ . '/../layouts/dashboard.php';
 }
 
+function user_init() {
+  global $app;
+  if(!isset($_SESSION['auth']) || !$_SESSION['auth']['isAuthenticated']){
+    $_SESSION['url_back'] = current_url();
+    header('location: ?page=login');
+    exit();
+  }
+  $app['layout'] = __DIR__ . '/../layouts/user.php';
+}
+
 function layout_head() {
   global $app;
   foreach ($app['cssFiles'] as $key => $cssFile) {
@@ -77,7 +87,7 @@ function sql_operators() {
 }
 
 function create_url($file, $params = [], $full=false) {
-  $url = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://{$_SERVER['HTTP_HOST']}{$_SERVER['REQUEST_URI']}";
+  $url = current_url();
   $parse_url = parse_url($url);
   $qs_arr = [];
   if(isset($parse_url['query'])){
@@ -96,7 +106,12 @@ function create_url($file, $params = [], $full=false) {
     $link_base = "{$parse_url['scheme']}://{$parse_url['host']}{$path}";
     $link = "{$link_base}$link";
   }
-  
+
   return $link;
+}
+
+function current_url() {
+  $url = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://{$_SERVER['HTTP_HOST']}{$_SERVER['REQUEST_URI']}";
+  return $url;
 }
 ?>

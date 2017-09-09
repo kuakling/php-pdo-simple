@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 09, 2017 at 09:56 AM
+-- Generation Time: Sep 09, 2017 at 12:01 PM
 -- Server version: 10.1.10-MariaDB
 -- PHP Version: 5.6.15
 
@@ -19,6 +19,51 @@ SET time_zone = "+00:00";
 --
 -- Database: `ecommerce_db`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `orders`
+--
+
+CREATE TABLE `orders` (
+  `id` int(11) NOT NULL,
+  `send_address` varchar(255) NOT NULL,
+  `date` datetime NOT NULL,
+  `status` varchar(30) NOT NULL,
+  `user_id` int(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
+
+--
+-- Dumping data for table `orders`
+--
+
+INSERT INTO `orders` (`id`, `send_address`, `date`, `status`, `user_id`) VALUES
+(1, 'CommSci PSU Pattani', '2017-09-09 11:56:39', '0', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `orders_items`
+--
+
+CREATE TABLE `orders_items` (
+  `id` int(11) NOT NULL,
+  `product_id` int(10) NOT NULL,
+  `orders_id` int(10) NOT NULL,
+  `amount` int(10) NOT NULL,
+  `price` float NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
+
+--
+-- Dumping data for table `orders_items`
+--
+
+INSERT INTO `orders_items` (`id`, `product_id`, `orders_id`, `amount`, `price`) VALUES
+(1, 24, 1, 1, 199),
+(2, 12, 1, 10, 159),
+(3, 6, 1, 1, 123),
+(4, 19, 1, 1, 1599);
 
 -- --------------------------------------------------------
 
@@ -149,7 +194,7 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id`, `username`, `password`, `email`, `status`, `is_admin`, `created_at`, `updated_at`) VALUES
-(1, 'admin', '$2y$11$8ehpBNqg7C4oKiBMRKcJL.YxmBScZQws0yWqmqQYs14JDgJi7zK1.', 'admin@localhost.com', 1, 0, '2017-09-09 09:08:43', '2017-09-09 09:08:43');
+(1, 'admin', '$2y$11$el3AxHQ76bdLEvlsLCo6P.DI6EJnMeZfJKhlTCZy8kP1qlC5fdOPS', 'admin@localhost.com', 1, 0, '2017-09-09 09:08:43', '2017-09-09 09:08:43');
 
 -- --------------------------------------------------------
 
@@ -172,11 +217,23 @@ CREATE TABLE `user_profile` (
 --
 
 INSERT INTO `user_profile` (`id`, `fullname`, `address`, `gender`, `tel`, `created_at`, `updated_at`) VALUES
-(1, 'แอดมิน', '123', 2, '0856289710', '2017-09-09 09:08:43', '2017-09-09 09:08:43');
+(1, 'แอดมิน', '123/1 หมู 9 ต.โคกโพธิ์ อ.โคกโพธิ์ จ.ปัตตานี 94120', 2, '0856289710', '2017-09-09 09:08:43', '2017-09-09 09:08:43');
 
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `orders`
+--
+ALTER TABLE `orders`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `orders_items`
+--
+ALTER TABLE `orders_items`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `product`
@@ -214,6 +271,16 @@ ALTER TABLE `user_profile`
 -- AUTO_INCREMENT for dumped tables
 --
 
+--
+-- AUTO_INCREMENT for table `orders`
+--
+ALTER TABLE `orders`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT for table `orders_items`
+--
+ALTER TABLE `orders_items`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `product`
 --

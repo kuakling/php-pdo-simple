@@ -27,6 +27,7 @@
       'id' => $product_id
     ]);
     $product = $sth_product->fetch(PDO::FETCH_ASSOC);
+
     $price_all = $product['price'] * $item['amount'];
     $price_total += $price_all;
     ?>
@@ -34,9 +35,12 @@
       <th scope="row"><?= $i ?></th>
       <td><?= $product_id; ?></td>
       <td><?= $product['name']; ?></td>
-      <td class="text-right"><?= number_format($product['price']); ?></td>
       <td class="text-right">
-        <form class="update_amount" action="?page=cart/update" method="post">
+        <?= number_format($product['price']); ?>
+        <input type="hidden" class="price_<?=$product_id?>" value="<?=$product['price']?>">
+      </td>
+      <td class="text-right">
+        <form class="update_amount">
           <div class="form-group">
             <div class="input-group mb-2 mb-sm-0">
               <input type="text" class="form-control amount_<?=$product_id?>" name="amount[<?=$product_id?>]" value="<?= $item['amount']; ?>">
@@ -46,7 +50,10 @@
             </div>
         </form>
       </td>
-      <td class="text-right"><?= number_format($price_all); ?></td>
+      <td class="text-right">
+        <span class="price_all_display_<?=$product_id?>"><?= number_format($price_all); ?></span>
+        <input type="hidden" class="price_all_<?=$product_id?>" name="price_all[<?=$product_id?>]" value="<?=$price_all?>">
+      </td>
       <td><a href="?page=cart/delete&id=<?=$product_id?>" class="text-danger"><i class="fa fa-trash"></i></a></td>
     </tr>
     <?php endforeach; ?>
@@ -63,3 +70,31 @@
 <div class="text-right">
   <a href="?page=cart/clear" class="btn btn-outline-danger"><i class="fa fa-trash"></i> ยกเลิกตะกร้าสินค้า</a>
 </div>
+<?php
+$app['jsScripts'][] = "
+$('.update_amount').submit(function(e) {
+  e.preventDefault();
+
+  $.ajax({
+    url: '?page=cart/update',
+    method: 'post',
+    data: $(this).serialize(),
+    success: function(data) {
+      console.log(data);
+      var price = $('.price_'+data.product_id).val();
+      var amount = data.amount;
+      var price_all = price*amount;
+      $('.price_all_display_'+data.product_id).text(price_all);
+      $('.price_all_'+data.product_id).val(price_all);
+
+      var items = $('input[name^=\"price_all\"]');
+      var price_total = 0;
+      items.each(function() {
+        price_total += parseInt($(this).val());
+      });
+      $('.price_total').text(price_total);
+    }
+  });
+});
+";
+?>

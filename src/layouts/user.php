@@ -96,7 +96,14 @@
               หน้าแรก
             </a>
             <a href="?page=user/index" class="list-group-item<?= (isset($_GET['page']) && $_GET['page'] == 'user/index') ? ' active' : '' ?>">
-              ข้อมูลผู้ใช้
+              ประวัติการสั่งซื้อ
+            </a>
+          </div>
+
+          <hr />
+          <div class="list-group">
+            <a href="?page=user/profile" class="list-group-item<?= (isset($_GET['page']) && $_GET['page'] == 'user/profile') ? ' active' : '' ?>">
+              ข้อมูลส่วนตัว
             </a>
             <a href="?page=user/change-password" class="list-group-item<?= (isset($_GET['page']) && $_GET['page'] == 'user/change-password') ? ' active' : '' ?>">
               เปลี่ยนรหัสผ่าน

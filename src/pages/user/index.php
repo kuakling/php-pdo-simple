@@ -1,12 +1,33 @@
 <?php user_init(); ?>
 <?php
-if(isset($_GET['cancel'])) {
-  $sth_cancel = $app['db']->prepare("UPDATE orders SET status=0 WHERE id=:id");
-  $sth_cancel->execute([
-    'id' => $_GET['cancel']
+$change_status = false;
+if(isset($_GET['cancel']) || isset($_GET['resume'])) {
+  $change_status = true;
+  $orders_id = isset($_GET['cancel']) ? $_GET['cancel'] : $_GET['resume'];
+  $status = isset($_GET['cancel']) ? 0 : 1;
+}
+
+if($change_status){
+  $sth_check = $app['db']->prepare("SELECT * FROM orders  WHERE id=:id");
+  $sth_check->execute([
+    'id' => $orders_id
   ]);
-  header("location: ?page=user/index");
-  exit();
+  $result_check = $sth_check->fetch(PDO::FETCH_ASSOC);
+
+  if($result_check['user_id'] == $_SESSION['auth']['user']['id']){
+    $sth_cancel = $app['db']->prepare("UPDATE orders SET status=:status WHERE id=:id");
+    $sth_cancel->execute([
+      'status' => $status,
+      'id' => $orders_id
+    ]);
+    header("location: ?page=user/index");
+    exit();
+  }else{
+    $app['flashMessages'][] = [
+      'type' => 'danger',
+      'text' => 'การเปลี่ยนแปลงสถานะรายการสั่งซื้อสินค้าไม่ถูกต้อง'
+    ];
+  }
 }
 ?>
 <?php
@@ -23,14 +44,14 @@ $statuses = [
   3 => 'จัดส่งสินค้าแล้ว'
 ];
 ?>
-<table class="table table-striped boder">
+<table class="table table-striped border">
   <thead>
     <tr>
       <th>ID</th>
       <th>Date</th>
       <th>Send Address</th>
       <th>Status</th>
-      <th>Cancel</th>
+      <th>...</th>
     </tr>
   </thead>
   <tbody>
@@ -41,9 +62,21 @@ $statuses = [
       <td><?=$orders['send_address']?></td>
       <td><?=$statuses[intval($orders['status'])]?></td>
       <td>
+        <?php
+        $ordes_status = intval($orders['status']);
+        if($ordes_status == 0) { ?>
+        <a href="?page=user/index&resume=<?=$orders['id']?>" class="text-info">
+          <i class="fa fa-play" aria-hidden="true"></i>
+        </a>
+        <?php }elseif ($ordes_status == 1) { ?>
         <a href="?page=user/index&cancel=<?=$orders['id']?>" class="text-danger">
           <i class="fa fa-trash" aria-hidden="true"></i>
         </a>
+        <?php }elseif ($ordes_status == 2) { ?>
+        <i class="fa fa-money" aria-hidden="true"></i>
+        <?php }elseif ($ordes_status == 3) { ?>
+        <i class="fa fa-truck" aria-hidden="true"></i>
+        <?php } ?>
       </td>
     </tr>
     <?php endforeach; ?>

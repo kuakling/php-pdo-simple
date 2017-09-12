@@ -7,7 +7,7 @@ if($_POST && count($carts) > 0){
     $sth->execute([
       'send_address' => $_POST['send_address'],
       'date' => date('Y-m-d h:i:s'),
-      'status' => 0,
+      'status' => 1,
       'user_id' => $_SESSION['auth']['user']['id']
     ]);
     $orders_id = $app['db']->lastInsertId();

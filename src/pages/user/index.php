@@ -8,13 +8,13 @@ if(isset($_GET['cancel']) || isset($_GET['resume'])) {
 }
 
 if($change_status){
-  $sth_check = $app['db']->prepare("SELECT * FROM orders  WHERE id=:id");
+  $sth_check = $app['db']->prepare("SELECT * FROM orders WHERE id=:id");
   $sth_check->execute([
     'id' => $orders_id
   ]);
   $result_check = $sth_check->fetch(PDO::FETCH_ASSOC);
 
-  if($result_check['user_id'] == $_SESSION['auth']['user']['id']){
+  if($result_check['user_id'] == $_SESSION['auth']['user']['id'] && intval($result_check['status']) <= 1){
     $sth_cancel = $app['db']->prepare("UPDATE orders SET status=:status WHERE id=:id");
     $sth_cancel->execute([
       'status' => $status,
@@ -31,9 +31,14 @@ if($change_status){
 }
 ?>
 <?php
-$sth = $app['db']->prepare("SELECT * FROM orders WHERE id=:id");
+$sth = $app['db']->prepare("SELECT orders.*, COUNT(orders_items.id) as count_items
+FROM orders LEFT OUTER JOIN orders_items
+ON orders.id = orders_items.orders_id
+WHERE orders.user_id=:user_id
+GROUP BY orders.id
+");
 $sth->execute([
-  'id' => $_SESSION['auth']['user']['id']
+  'user_id' => $_SESSION['auth']['user']['id']
 ]);
 $result = $sth->fetchAll(PDO::FETCH_ASSOC);
 
@@ -50,6 +55,7 @@ $statuses = [
       <th>ID</th>
       <th>Date</th>
       <th>Send Address</th>
+      <th>Count</th>
       <th>Status</th>
       <th>...</th>
     </tr>
@@ -58,8 +64,9 @@ $statuses = [
     <?php foreach ($result as $orders) : ?>
     <tr>
       <th><?=$orders['id']?></th>
-      <td><?=date('d/m/Y h:i:s', strtotime($orders['date']))?></td>
+      <td><a href="?page=user/cart-history&id=<?=$orders['id']?>"><?=date('d/m/Y h:i:s', strtotime($orders['date']))?></a></td>
       <td><?=$orders['send_address']?></td>
+      <td><?=$orders['count_items']?></td>
       <td><?=$statuses[intval($orders['status'])]?></td>
       <td>
         <?php

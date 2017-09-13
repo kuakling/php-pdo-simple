@@ -42,12 +42,7 @@ $sth->execute([
 ]);
 $result = $sth->fetchAll(PDO::FETCH_ASSOC);
 
-$statuses = [
-  0 => 'ยกเลิกการสั่งซื้อ',
-  1 => 'สั่งซื้อ',
-  2 => 'ชำระเงินแล้ว',
-  3 => 'จัดส่งสินค้าแล้ว'
-];
+$statuses = cart_stateses();
 ?>
 <table class="table table-striped border">
   <thead>

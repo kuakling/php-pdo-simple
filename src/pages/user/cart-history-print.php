@@ -1,5 +1,6 @@
 <?php user_init(); ?>
 <?php
+
 $sth_orders = $app['db']->prepare("SELECT orders.*, user.*, user_profile.*, orders.id as id FROM orders
   INNER JOIN user ON orders.user_id = user.id
   INNER JOIN user_profile ON user.id = user_profile.id
@@ -10,46 +11,64 @@ $sth_orders->execute([
 ]);
 $result_orders = $sth_orders->fetch(PDO::FETCH_ASSOC);
 ?>
-<?php if($result_orders) { ?>
+<?php if($result_orders) {
+  $app['layout'] = __DIR__ . '/../../layouts/pdf.php';
+?>
+  <table style="width: 100%">
+    <tr>
+      <td style="width:80px;">
+        <img src="assets/images/logo.svg" style="width: 80px;">
+      </td>
+      <td style="text-align:center;">
+        <h3>อ่าวไทยเครื่องเขียน</h3>
+        123 ถ.เจริญประดิษฐ์ ต.รูสะมิแล<br />อ.เมือง จ.ปัตตานี 94000
+      </td>
+    </tr>
+  </table>
+  <hr />
+  <table style="width: 100%; line-height: 1.7;">
+    <tr>
+      <td style="width: 50%">
+        <h4>ผู้ซื้อ</h4>
+        <div class="">
+          ชื่อ: <?= $result_orders['fullname']; ?>
+        </div>
+        <div class="">
+          ที่อยู่: <?= $result_orders['address']; ?>
+        </div>
+        <div class="">
+          ส่ง: <?= $result_orders['send_address']; ?>
+        </div>
+        <div class="">
+          หมายเลขโทรศัพท์: <?= $result_orders['tel']; ?>
+        </div>
+        <div class="">
+          อีเมล์: <?= $result_orders['email']; ?>
+        </div>
+      </td>
+      <td style="text-align: right; vertical-align: top;">
+        <div class="">
+          รหัสการสั่งซื้อ: <?= sprintf("%05s", $result_orders['id']); ?>
+        </div>
+        <div class="">
+          วันที่สั่งซื้อ: <?= date('d/m/Y h:i:s', strtotime($result_orders['date'])) ?>
+        </div>
+        <?php
+        $statuses = cart_stateses();
+        ?>
+        <div class="">
+          สถานะ: <?= $statuses[intval($result_orders['status'])] ?>
+        </div>
+      </td>
+    </tr>
+  </table>
 <div class="row">
   <div class="container-fluid">
-    <div class="text-center">
-      <img src="assets/images/logo.svg" width="100" class="pull-left">
-      <h3>อ่าวไทยเครื่องเขียน</h3>
-      123 ถ.เจริญประดิษฐ์ ต.รูสะมิแล<br />อ.เมือง จ.ปัตตานี 94000
-    </div>
-    <hr />
     <div class="pull-right text-right">
-      <div class="">
-        รหัสการสั่งซื้อ: <?= sprintf("%05s", $result_orders['id']); ?>
-      </div>
-      <div class="">
-        วันที่สั่งซื้อ: <?= date('d/m/Y h:i:s', strtotime($result_orders['date'])) ?>
-      </div>
-      <?php
-      $statuses = cart_stateses();
-      ?>
-      <div class="">
-        สถานะ: <?= $statuses[intval($result_orders['status'])] ?>
-      </div>
+
     </div>
     <div class="">
-      <h4>ผู้ซื้อ</h4>
-      <div class="">
-        ชื่อ: <?= $result_orders['fullname']; ?>
-      </div>
-      <div class="">
-        ที่อยู่: <?= $result_orders['address']; ?>
-      </div>
-      <div class="">
-        ส่ง: <?= $result_orders['send_address']; ?>
-      </div>
-      <div class="">
-        หมายเลขโทรศัพท์: <?= $result_orders['tel']; ?>
-      </div>
-      <div class="">
-        อีเมล์: <?= $result_orders['email']; ?>
-      </div>
+
     </div>
   </div>
 </div>
@@ -107,12 +126,6 @@ $result_items = $sth_items->fetchAll(PDO::FETCH_ASSOC);
     </tr>
   </tfoot>
 </table>
-<div class="text-right">
-  <a href="?page=user/cart-history-print&id=<?=$result_orders['id']?>" class="btn btn-outline-secondary" target="_blank">
-    <i class="fa fa-print" aria-hidden="true"></i>
-    Print
-  </a>
-</div>
 
 <?php }else{
   $app['flashMessages'][] = [

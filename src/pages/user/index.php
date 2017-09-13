@@ -23,10 +23,7 @@ if($change_status){
     header("location: ?page=user/index");
     exit();
   }else{
-    $app['flashMessages'][] = [
-      'type' => 'danger',
-      'text' => 'การเปลี่ยนแปลงสถานะรายการสั่งซื้อสินค้าไม่ถูกต้อง'
-    ];
+    add_flash_message('danger', 'การเปลี่ยนแปลงสถานะรายการสั่งซื้อสินค้าไม่ถูกต้อง');
   }
 }
 ?>

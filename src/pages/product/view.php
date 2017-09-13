@@ -53,10 +53,7 @@ $product = $sth->fetch(PDO::FETCH_ASSOC);
   </div>
 </div>
 <?php }else {
-  $app['flashMessages'][] = [
-    'type' => 'warning',
-    'text' => 'Product not found.',
-  ];
+  add_flash_message('warning', 'Product not found.');
   $app['pageTitle'] = "Error: HTTP/1.0 400 Bad Request";
   header("HTTP/1.0 400 Bad Request");
 }

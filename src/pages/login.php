@@ -52,10 +52,7 @@ if($_POST) {
           header("location: {$url}");
           exit();
         }else{
-          $app['flashMessages'][] = [
-            'type' => 'danger',
-            'text' => 'User ของคุณถูกระงับ !!!'
-          ];
+          add_flash_message('danger', 'User ของคุณถูกระงับ !!!');
         }
       } else {
         echo 'No Invalid password.';

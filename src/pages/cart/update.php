@@ -19,5 +19,8 @@
 $product_id = key($_POST['amount']);
 $_SESSION['cart'][$product_id]['amount'] = intval($_POST['amount'][$product_id]);
 
+add_flash_message('success', 'เปลี่ยนแปลงจำนวนสินค้าเรียบร้อย');
+
 header("location: ?page=cart/index");
+exit();
 ?>

@@ -26,16 +26,10 @@ if($_POST) {
       ];
       header('location: ./');
     }else{
-      $app['flashMessages'][] = [
-        'type' => 'danger',
-        'text' => 'การยืนยันรหัสผ่านไม่ถูกต้อง'
-      ];
+      add_flash_message('danger', 'การยืนยันรหัสผ่านไม่ถูกต้อง');
     }
   }else{
-    $app['flashMessages'][] = [
-      'type' => 'danger',
-      'text' => 'พาสเวิร์ดเดิมไม่ถูกต้อง'
-    ];
+    add_flash_message('danger', 'พาสเวิร์ดเดิมไม่ถูกต้อง');
   }
 }
 ?>

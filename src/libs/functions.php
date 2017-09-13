@@ -7,10 +7,7 @@ function admin_verify() {
   }else{
     if(!$_SESSION['auth']['user']['is_admin']){
       header('HTTP/1.0 403 Forbidden');
-      $app['flashMessages'][] = [
-        'type' => 'danger',
-        'text' => '403 Not Allow.'
-      ];
+      add_flash_message('danger', '403 Not Allow.');
       $app['content'] = "<h2 class=\"text-danger text-center\">{$_SESSION['auth']['user']['username']} ไม่ได้รับการอนุญาตให้ใช้งานหน้านี้</h2>";
       include(__DIR__ . '/../layouts/blank.php');
       exit();
@@ -49,11 +46,19 @@ function layout_head() {
   }
 }
 
+function add_flash_message($type='info', $text='') {
+  $_SESSION['flashMessages'][] = [
+    'type' => $type,
+    'text' => $text
+  ];
+}
+
 function layout_flash_messages() {
-  global $app;
-  foreach ($app['flashMessages'] as $key => $flashMessage) {
+  $flashMessages = isset($_SESSION['flashMessages']) ? $_SESSION['flashMessages'] : [];
+  foreach ($flashMessages as $flashMessage) {
     echo "<div class=\"alert alert-{$flashMessage['type']}\" role=\"alert\">{$flashMessage['text']}</div>";
   }
+  unset($_SESSION['flashMessages']);
 }
 
 function layout_end_body() {

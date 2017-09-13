@@ -62,10 +62,7 @@ if($_POST) {
 
     $errorInfo = $stmt->errorInfo();
     if($errorInfo[2]){
-      $app['flashMessages'][] = [
-        'type' => 'warning',
-        'text' => $errorInfo[2]
-      ];
+      add_flash_message('warning', $errorInfo[2]);
     }else{
       header('location: ?page=admin/product/update&id='.$_GET['id']);
       exit();

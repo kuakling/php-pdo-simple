@@ -128,9 +128,6 @@ $result_items = $sth_items->fetchAll(PDO::FETCH_ASSOC);
 </table>
 
 <?php }else{
-  $app['flashMessages'][] = [
-    'type' => 'danger',
-    'text' => 'ไม่มีการสั่งซื้อสินค้าในรหัสนี้'
-  ];
+  add_flash_message('danger', 'ไม่มีการสั่งซื้อสินค้าในรหัสนี้');
 }
 ?>

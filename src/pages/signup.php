@@ -25,12 +25,7 @@ if($_POST) {
   }
 
   if($errors){
-    // foreach ($errors as $error) {
-    // $app['flashMessages'][] = [
-    //   'type' => 'danger',
-    //   'text' => $error
-    // ];
-    // }
+
   }else{
     $options = [
       'cost' => 11,
@@ -59,19 +54,13 @@ if($_POST) {
       $app['db']->commit();
     }catch(PDOExecption $e) {
       $app['db']->rollback();
-      $app['flashMessages'][] = [
-        'type' => 'warning',
-        'text' => $e->getMessage()
-      ];
+      add_flash_message('warning', $e->getMessage());
     }
 
 
     $errorInfo = $stmt->errorInfo();
     if($errorInfo[2]){
-      $app['flashMessages'][] = [
-        'type' => 'warning',
-        'text' => $errorInfo[2]
-      ];
+      add_flash_message('warning', $errorInfo[2]);
     }else{
       header('location: index.php');
     }

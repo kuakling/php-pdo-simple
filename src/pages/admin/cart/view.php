@@ -30,10 +30,7 @@ if($_POST) {
     exit();
   }catch(PDOExecption $e) {
     $app['db']->rollback();
-    $app['flashMessages'][] = [
-      'type' => 'warning',
-      'text' => $e->getMessage()
-    ];
+    add_flash_message('warning', $e->getMessage());
   }
 }
 ?>

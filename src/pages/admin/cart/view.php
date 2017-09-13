@@ -1,14 +1,40 @@
 <?php admin_init(); ?>
 <?php
 if($_POST) {
-  print_r($_POST);
-  // $sth_status = $app['db']->prepare("UPDATE orders SET status=:status WHERE id=:id");
-  // $sth_status->execute([
-  //   'status' => $_POST['status'],
-  //   'id' => $_GET['id'],
-  // ]);
-  //
-  // header("location: ?page=admin/cart/view&id={$_GET['id']}");
+  try {
+    $app['db']->beginTransaction();
+    $sth_status = $app['db']->prepare("UPDATE orders SET status=:status WHERE id=:id");
+    $sth_status->execute([
+      'status' => $_POST['status'],
+      'id' => $_GET['id'],
+    ]);
+
+    if($_POST['del_product']){
+      $sth_items_update = $app['db']->prepare("SELECT * FROM orders_items
+        WHERE orders_id=:orders_id");
+      $sth_items_update->execute([
+        'orders_id' => $_GET['id'],
+      ]);
+      $result_items_update = $sth_items_update->fetchAll(PDO::FETCH_ASSOC);
+      foreach ($result_items_update as $item_update) {
+        $sql_product_update = "UPDATE product set qty = qty - :qty WHERE id = :product_id";
+        $sth_product_update = $app['db']->prepare($sql_product_update);
+        $sth_product_update->execute([
+          'qty' => $item_update['amount'],
+          'product_id' => $item_update['product_id']
+        ]);
+      }
+    }
+    $app['db']->commit();
+    header("location: ?page=admin/cart/view&id={$_GET['id']}");
+    exit();
+  }catch(PDOExecption $e) {
+    $app['db']->rollback();
+    $app['flashMessages'][] = [
+      'type' => 'warning',
+      'text' => $e->getMessage()
+    ];
+  }
 }
 ?>
 <?php
@@ -119,7 +145,7 @@ $result_orders = $sth_orders->fetch(PDO::FETCH_ASSOC);
       ?>
       <tr>
         <th scope="row"><?= $i ?></th>
-        <td><?= $item['id']; ?></td>
+        <td><?= $item['product_id']; ?></td>
         <td><?= $item['pname']; ?></td>
         <td class="text-right"><?= number_format($item['price']); ?></td>
         <td class="text-right">

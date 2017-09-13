@@ -43,6 +43,12 @@
               <a class="nav-link" href="?page=admin/cart/index">Carts</a>
             </li>
           </ul>
+
+          <ul class="nav nav-pills flex-column">
+            <li class="nav-item">
+              <a class="nav-link" href="?page=admin/user/index">Users</a>
+            </li>
+          </ul>
         </nav>
 
         <main class="col-sm-9 ml-sm-auto col-md-10 pt-3" role="main">

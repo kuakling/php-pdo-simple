@@ -31,25 +31,32 @@ if($_POST) {
     $result = $sth->fetch(PDO::FETCH_ASSOC);
     if($result){
       if (password_verify($_POST['password'], $result['password'])) {
-        $_SESSION['auth'] = [
-          'isAuthenticated' => true,
-          'user' => [
-            'id' => $result['id'],
-            'username' => $result['username'],
-            'email' => $result['email'],
-            'status' => $result['status'],
-            'is_admin' => intval($result['is_admin']),
-            'created_at' => $result['created_at'],
-            'updated_at' => $result['updated_at'],
-          ],
-        ];
-        $url = './';
-        if(isset($_SESSION['url_back'])){
-          $url = $_SESSION['url_back'];
-          unset($_SESSION['url_back']);
+        if($result['status'] == 1) {
+          $_SESSION['auth'] = [
+            'isAuthenticated' => true,
+            'user' => [
+              'id' => $result['id'],
+              'username' => $result['username'],
+              'email' => $result['email'],
+              'status' => $result['status'],
+              'is_admin' => intval($result['is_admin']),
+              'created_at' => $result['created_at'],
+              'updated_at' => $result['updated_at'],
+            ],
+          ];
+          $url = './';
+          if(isset($_SESSION['url_back'])){
+            $url = $_SESSION['url_back'];
+            unset($_SESSION['url_back']);
+          }
+          header("location: {$url}");
+          exit();
+        }else{
+          $app['flashMessages'][] = [
+            'type' => 'danger',
+            'text' => 'User ของคุณถูกระงับ !!!'
+          ];
         }
-        header("location: {$url}");
-        exit();
       } else {
         echo 'No Invalid password.';
       }

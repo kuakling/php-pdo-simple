@@ -1,5 +1,17 @@
 <?php admin_init(); ?>
 <?php
+if($_POST) {
+  print_r($_POST);
+  // $sth_status = $app['db']->prepare("UPDATE orders SET status=:status WHERE id=:id");
+  // $sth_status->execute([
+  //   'status' => $_POST['status'],
+  //   'id' => $_GET['id'],
+  // ]);
+  //
+  // header("location: ?page=admin/cart/view&id={$_GET['id']}");
+}
+?>
+<?php
 $sth_orders = $app['db']->prepare("SELECT orders.*, user.*, user_profile.*, orders.id as id, orders.status as status FROM orders
   INNER JOIN user ON orders.user_id = user.id
   INNER JOIN user_profile ON user.id = user_profile.id
@@ -36,8 +48,17 @@ $result_orders = $sth_orders->fetch(PDO::FETCH_ASSOC);
                 <option value="<?=$key?>"<?= (intval($result_orders['status']) == $key) ? ' selected' : '' ?>><?=$st?></option>
                 <?php endforeach; ?>
               </select>
-              <button type="submit" class="btn btn-primary"><i class="fa fa-save" aria-hidden="true"></i> Save</button>
             </div>
+
+            <div class="status_option" style="display: none;">
+              <label class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input" name="del_product" id="del_product">
+                <span class="custom-control-indicator"></span>
+                <span class="custom-control-description">ลบจำนวนสินค้าในคลังสินค้า</span>
+              </label>
+            </div>
+
+            <button type="submit" class="btn btn-primary"><i class="fa fa-save" aria-hidden="true"></i></button>
           </form>
         </div>
       </div>
@@ -121,3 +142,17 @@ $result_orders = $sth_orders->fetch(PDO::FETCH_ASSOC);
       Print
     </a>
   </div>
+
+
+<?php
+$app['jsScripts'][] = "
+$('#status').change(function(){
+  var status = $(this).val();
+  if(status == 2) {
+    $('.status_option').show('slow');
+  }else{
+    $('.status_option').hide('slow');
+  }
+});
+";
+?>

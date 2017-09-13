@@ -18,30 +18,7 @@
   </head>
 
   <body>
-    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-      <a class="navbar-brand" href="#">Admin</a>
-      <button class="navbar-toggler d-lg-none" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-
-      <div class="collapse navbar-collapse" id="navbarsExampleDefault">
-        <ul class="navbar-nav mr-auto">
-          <li class="nav-item active">
-            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-          </li>
-        </ul>
-
-        <ul class="navbar-nav  my-2 my-lg-0">
-          <li class="nav-item">
-            <span class="navbar-text"><?php echo $_SESSION['auth']['user']['username']; ?></span>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="?page=logout">Logout</a>
-          </li>
-        </ul>
-      </div>
-    </nav>
-
+    <?php include(__DIR__ . '/components/navbar.php'); ?>
     <div class="container-fluid">
       <div class="row">
         <nav class="col-sm-3 col-md-2 d-none d-sm-block bg-light sidebar">
@@ -58,6 +35,12 @@
             </li>
             <li class="nav-item">
               <a class="nav-link" href="?page=admin/supplier/index">Supplier</a>
+            </li>
+          </ul>
+
+          <ul class="nav nav-pills flex-column">
+            <li class="nav-item">
+              <a class="nav-link" href="?page=admin/cart/index">Carts</a>
             </li>
           </ul>
         </nav>

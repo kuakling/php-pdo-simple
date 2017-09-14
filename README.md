@@ -23,4 +23,10 @@
 2. copy โฟลเดอร์ bootstrap-datepicker มาไว้ในโฟลเดอร์ [project/assets]
 
 
+## ===========lobibox============
+1. ดาวนโหลด lobibox จากเว็บไซต์ https://lobianijs.com/ แล้วแตกไฟล์ zip
+2. copy โฟลเดอร์ dist มาไว้ในโฟลเดอร์ [project/assets]
+3. เปลี่ยนชื่อโฟลเดอร์ dist เป็น lobibox
+
+
 ![file structure](https://raw.githubusercontent.com/kuakling/php-pdo-simple/master/assets/guide/file-structure.png)

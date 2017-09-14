@@ -22,7 +22,7 @@ if($_POST) {
   }
 
   if($errors){
-    //กรณีมี Error
+    add_flash_message('danger', 'การกรอกข้อมูลไม่ถูกต้อง');
   }else{
     $sth = $app['db']->prepare("SELECT * FROM user WHERE username = :username");
     $sth->execute([

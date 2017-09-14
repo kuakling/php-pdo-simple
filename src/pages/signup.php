@@ -25,7 +25,7 @@ if($_POST) {
   }
 
   if($errors){
-
+    add_flash_message('danger', 'การกรอกข้อมูลไม่ถูกต้อง');
   }else{
     $options = [
       'cost' => 11,

@@ -1,3 +1,4 @@
+<?php layout_begin_page(); ?>
 <!DOCTYPE html>
 <html lang="en">
   <head>

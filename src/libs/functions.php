@@ -31,6 +31,14 @@ function user_init() {
   $app['layout'] = __DIR__ . '/../layouts/user.php';
 }
 
+function layout_begin_page() {
+  global $app;
+  if(isset($_SESSION['flashMessages']) && $_SESSION['flashMessages']){
+    $app['cssFiles'][] = 'assets/lobibox/css/lobibox.min.css';
+    $app['jsFiles'][] = 'assets/lobibox/js/lobibox.min.js';
+  }
+}
+
 function layout_head() {
   global $app;
   foreach ($app['cssFiles'] as $key => $cssFile) {
@@ -54,9 +62,23 @@ function add_flash_message($type='info', $text='') {
 }
 
 function layout_flash_messages() {
+  global $app;
   $flashMessages = isset($_SESSION['flashMessages']) ? $_SESSION['flashMessages'] : [];
   foreach ($flashMessages as $flashMessage) {
-    echo "<div class=\"alert alert-{$flashMessage['type']}\" role=\"alert\">{$flashMessage['text']}</div>";
+    // echo "<div class=\"alert alert-{$flashMessage['type']}\" role=\"alert\">{$flashMessage['text']}</div>";
+    $types = ['warning', 'info', 'success', 'error'];
+    $type = $flashMessage['type'];
+    if($type == 'danger') { $type = 'error'; }
+    if(!in_array($type, $types)) { $type = 'default'; }
+    $app['jsScripts'][] = "Lobibox.notify('{$type}', {
+    size: 'mini',
+    rounded: true,
+    delayIndicator: false,
+    soundPath: 'assets/lobibox/sounds/',
+    iconSource: 'fontAwesome',
+    position: 'top right',
+    msg: '{$flashMessage['text']}'
+});";
   }
   unset($_SESSION['flashMessages']);
 }

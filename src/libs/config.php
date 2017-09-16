@@ -1,7 +1,7 @@
 <?php
 return [
   'db' => [
-    'dbname' => 'ecommerce_db',
+    'dbname' => 'php_pdo_simple_db',
     'username' => 'root',
     'password' => '',
   ],

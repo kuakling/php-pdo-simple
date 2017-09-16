@@ -8,7 +8,7 @@ return [
   'jsScripts' => [],
   'db' => include(__DIR__ . '/db.php'),
   'flashMessages' => [],
-  'layout' => __DIR__ . '/../layouts/main.php',
+  'layout' => __DIR__ . '/../layouts/ecommerce.php',
   'uploadDir' => realpath(__DIR__ . '/../../uploads'),
 ];
 ?>

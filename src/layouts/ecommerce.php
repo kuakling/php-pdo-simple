@@ -155,13 +155,13 @@
 			<div class="block-slider block-slider4">
 				<ul class="" id="bxslider-home4">
 					<li>
-						<img src="assets/images/slider/h4-slide.png" alt="Slide">
+						<img src="assets/images/slider/slider-01.jpg" alt="Slide">
 						<div class="caption-group">
 							<h2 class="caption title">
-								iPhone <span class="primary">6 <strong>Plus</strong></span>
+								<span class="primary"> <strong>อ่าวไทยเครื่องเขียน</strong></span> ยินดีต้อนรับ
 							</h2>
-							<h4 class="caption subtitle">Dual SIM</h4>
-							<a class="caption button-radius" href="#"><span class="icon"></span>Shop now</a>
+							<h4 class="caption subtitle">โทร. 073123456</h4>
+							<a class="caption button-radius" href="?page=product/index"><span class="icon"></span>Shop now</a>
 						</div>
 					</li>
 					<li><img src="assets/images/slider/h4-slide2.png" alt="Slide">
@@ -173,13 +173,13 @@
 							<a class="caption button-radius" href="#"><span class="icon"></span>Shop now</a>
 						</div>
 					</li>
-					<li><img src="assets/images/slider/h4-slide3.png" alt="Slide">
+					<li><img src="assets/images/slider/slider-03.jpg" alt="Slide">
 						<div class="caption-group">
 							<h2 class="caption title">
-								Apple <span class="primary">Store <strong>Ipod</strong></span>
+								สีเทียนตราช้าง <span class="primary">ลดทั้งร้าน <strong>50%</strong></span>
 							</h2>
 							<h4 class="caption subtitle">Select Item</h4>
-							<a class="caption button-radius" href="#"><span class="icon"></span>Shop now</a>
+							<a class="caption button-radius" href="?page=product/view&id=4"><span class="icon"></span>Shop now</a>
 						</div>
 					</li>
 					<li><img src="assets/images/slider/h4-slide4.png" alt="Slide">
@@ -340,9 +340,11 @@
     <!-- Main Script -->
     <script src="assets/js/main.js"></script>
 
+    <?php if(!isset($_GET['page'])) { ?>
     <!-- Slider -->
     <script type="text/javascript" src="assets/js/bxslider.min.js"></script>
 	<script type="text/javascript" src="assets/js/script.slider.js"></script>
+    <?php } ?>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="assets/js/ie10-viewport-bug-workaround.js"></script>
     <?php layout_end_body(); ?>

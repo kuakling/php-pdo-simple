@@ -18,7 +18,7 @@ function admin_verify() {
 function admin_init() {
   global $app;
   admin_verify();
-  $app['layout'] = __DIR__ . '/../layouts/dashboard.php';
+  $app['layout'] = __DIR__ . '/../layouts/core-ui.php';
 }
 
 function user_init() {

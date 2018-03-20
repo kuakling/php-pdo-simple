@@ -71,7 +71,7 @@ if($_POST) {
       <form method="post">
         <div class="form-group">
           <label for="username">Username</label>
-          <input type="text" class="form-control<?php if(isset($errors['username'])){ echo " is-invalid";}?>" id="username" name="username" placeholder="Username">
+          <input type="text" class="form-control<?php if(isset($errors['username'])){ echo " is-invalid";}?>" id="username" name="username" placeholder="Username" value="<?= @$_POST['username'] ?>">
           <div class="invalid-feedback"><?php if(isset($errors['username'])){ echo $errors['username'];}?></div>
         </div>
         <div class="form-group">

@@ -57,14 +57,14 @@ if($_POST) {
 $app['pageTitle'] = "เพิ่มข้อมูลสินค้า";
 
 $formData = [
-  'name' => '',
-  'product_detail' => '',
-  'price' => '',
-  'qty' => '',
-  'size' => '',
-  'type_id' => '',
+  'name' => @$_POST['name'],
+  'product_detail' => @$_POST['product_detail'],
+  'price' => @$_POST['price'],
+  'qty' => @$_POST['qty'],
+  'size' => @$_POST['size'],
+  'type_id' => @$_POST['type_id'],
   'image' => '',
-  'supplier_id' => '',
+  'supplier_id' => @$_POST['supplier_id'],
 ];
 ?>
 <h2><?= $app['pageTitle']; ?></h2>

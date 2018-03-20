@@ -4,7 +4,7 @@ $sth = $app['db']->prepare("SELECT * FROM product WHERE id=:id");
 $sth->execute([
   'id' => $_GET['id']
 ]);
-$formData = $sth->fetch(PDO::FETCH_ASSOC);
+$formData = array_merge($sth->fetch(PDO::FETCH_ASSOC), $_POST);
 
 $errors = [];
 if($_POST) {

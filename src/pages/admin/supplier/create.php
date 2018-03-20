@@ -35,10 +35,10 @@ if($_POST) {
 $app['pageTitle'] = "เพิ่มข้อมูลร้านคู่ค้า";
 
 $formData = [
-  'supplier_name' => '',
-  'address' => '',
-  'telephone' => '',
-  'detail' => ''
+  'supplier_name' => @$_POST['supplier_name'],
+  'address' => @$_POST['address'],
+  'telephone' => @$_POST['telephone'],
+  'detail' => @$_POST['detail']
 ];
 ?>
 <h2><?= $app['pageTitle']; ?></h2>

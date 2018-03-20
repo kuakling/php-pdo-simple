@@ -37,7 +37,7 @@ $sth = $app['db']->prepare("SELECT * FROM supplier WHERE id=:id");
 $sth->execute([
   'id' => $_GET['id']
 ]);
-$formData = $sth->fetch(PDO::FETCH_ASSOC);
+$formData = array_merge($sth->fetch(PDO::FETCH_ASSOC), $_POST);
 $app['pageTitle'] = "แก้ไขข้อมูลร้านคู่ค้า: ".$formData['supplier_name'];
 ?>
 <h2><?= $app['pageTitle']; ?></h2>

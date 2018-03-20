@@ -7,14 +7,14 @@
 3. เปลี่ยนชื่อโฟลเดอร์ dist เป็น bootstrap
 
 
-## ===========Font Awesome============
-1. ดาวนโหลด Font Awesome จากเว็บไซต์ http://fontawesome.io/ แล้วแตกไฟล์ zip
+## ===========Font Awesome(4)============
+1. ดาวนโหลด Font Awesome 4.7.0 จากเว็บไซต์ https://fontawesome.com/v4.7.0/assets/font-awesome-4.7.0.zip แล้วแตกไฟล์ zip
 2. copy โฟลเดอร์ font-awesome-x.x.x มาไว้ในโฟลเดอร์ [project/assets]
 3. เปลี่ยนชื่อโฟลเดอร์ font-awesome-x.x.x เป็น font-awesome
 
 
-## ===========mPDF============
-1. ดาวนโหลด Font Awesome จากเว็บไซต์ https://github.com/mpdf/mpdf/releases แล้วแตกไฟล์ zip ลงในโฟลเดอร์ mPDF
+## ===========mPDF(6)============
+1. ดาวนโหลด mPDF 6.1.0 จากเว็บไซต์ https://github.com/mpdf/mpdf/releases/tag/v6.1.0 แล้วแตกไฟล์ zip ลงในโฟลเดอร์ mPDF
 2. copy โฟลเดอร์ mPDF มาไว้ในโฟลเดอร์ [project/assets]
 
 
